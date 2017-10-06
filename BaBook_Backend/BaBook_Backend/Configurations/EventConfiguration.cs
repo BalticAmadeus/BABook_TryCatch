@@ -13,7 +13,7 @@ namespace BaBook_Backend.Configurations
         {
             ToTable(nameof(Event));
             HasKey(x => x.EventId);
-            HasMany(x => x.AttendingUsers);
+            HasMany(x => x.AttendingUsers).WithMany(u => u.AttendedEvents);
         }
     }
 }

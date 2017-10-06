@@ -197,6 +197,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710061457530_initial.cs" />
+    <Compile Include="Migrations\201710061457530_initial.Designer.cs">
+      <DependentUpon>201710061457530_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\User.cs" />
@@ -271,6 +276,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201710061457530_initial.resx">
+      <DependentUpon>201710061457530_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

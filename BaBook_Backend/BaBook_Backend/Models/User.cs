@@ -11,5 +11,6 @@ namespace BaBook_Backend.Models
         public string Name { get; set; }
 
         public virtual List<Event> CreatedEvents { get; set; }
+        public virtual List<Event> AttendedEvents { get; set; }
     }
 }

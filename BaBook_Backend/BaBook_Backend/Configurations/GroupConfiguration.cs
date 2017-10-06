@@ -12,6 +12,7 @@ namespace BaBook_Backend.Configurations
         public GroupConfiguration()
         {
             ToTable(nameof(Group));
+            HasKey(x => x.GroupId);
             HasMany(x => x.GroupEvents);
         }
     }
