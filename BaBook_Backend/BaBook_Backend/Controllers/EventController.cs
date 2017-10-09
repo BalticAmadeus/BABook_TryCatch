@@ -19,10 +19,19 @@ namespace BaBook_Backend.Controllers
             using (var repository = new EventRepository())
             {
                 var toReturn = new List<EventViewModel>();
-                var models = repository.Get();
+                var models = repository.GetAll();
                 models.ForEach(x => toReturn.Add(DomainToViewModelMapping.MapEventViewModel(x)));
                 
                 return Ok(toReturn);
+            }
+        }
+
+        [Route("api/events/{id}")]
+        public IHttpActionResult GetEventById(int id)
+        {
+            using (var repository = new EventRepository())
+            {
+                return Ok(DomainToViewModelMapping.MapEventViewModel(repository.Get(id)));
             }
         }
 
@@ -34,6 +43,18 @@ namespace BaBook_Backend.Controllers
             {
                 var newEvent = ViewModelToDomainMapping.MapEvent(model);
                 repository.Add(newEvent, model.OwnerId, model.GroupId);
+                return Ok();
+            }
+        }
+
+        [HttpPost]
+        [Route("api/events")]
+        public IHttpActionResult UpdateEvent(CreateEventViewModel model)
+        {
+            using (var repository = new EventRepository())
+            {
+                var newEvent = ViewModelToDomainMapping.MapEvent(model);
+                repository.Update(model);
                 return Ok();
             }
         }
