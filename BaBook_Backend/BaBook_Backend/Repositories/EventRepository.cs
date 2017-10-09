@@ -11,9 +11,16 @@ namespace BaBook_Backend.Repositories
 {
     public class EventRepository : BaseRepository<Event>
     {
-        public void Add(Event model)
+        public void Add(Event model, int ownerId, int groupId)
         {
+            model.OfGroup = _context.Groups.FirstOrDefault(x => x.GroupId == groupId);
+            model.OwnerUser = _context.Users.FirstOrDefault(x => x.UserId == ownerId);
             _context.Events.Add(model);
+        }
+
+        public List<Event> Get()
+        {
+            return _context.Events.ToList();
         }
         
     }

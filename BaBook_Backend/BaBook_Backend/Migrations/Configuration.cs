@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using BaBook_Backend.Context;
 using BaBook_Backend.Models;
 
 namespace BaBook_Backend.Migrations
@@ -7,14 +9,14 @@ namespace BaBook_Backend.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BaBook_Backend.Context.DataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DataContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(BaBook_Backend.Context.DataContext context)
+        protected override void Seed(DataContext context)
         {
             Group group = new Group()
             {
@@ -23,6 +25,18 @@ namespace BaBook_Backend.Migrations
             };
 
             context.Groups.Add((group));
+
+            Event newEvent = new Event()
+            {
+                OfGroup = new Group(),
+                OwnerUser = new User(),
+                AttendingUsers = new List<User>(),
+                DateOfOccurance = new DateTime(1997,11,24, 15,25,25),
+                Location = "Snekutis",
+                Title = "BeerPong"
+            };
+
+            context.Events.Add(newEvent);
 
             base.Seed(context);
         }
