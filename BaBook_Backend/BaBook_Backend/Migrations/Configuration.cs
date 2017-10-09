@@ -1,3 +1,5 @@
+using BaBook_Backend.Models;
+
 namespace BaBook_Backend.Migrations
 {
     using System;
@@ -14,18 +16,15 @@ namespace BaBook_Backend.Migrations
 
         protected override void Seed(BaBook_Backend.Context.DataContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            Group group = new Group()
+            {
+                GroupId = 1,
+                Name = "ALUS"
+            };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Groups.Add((group));
+
+            base.Seed(context);
         }
     }
 }
