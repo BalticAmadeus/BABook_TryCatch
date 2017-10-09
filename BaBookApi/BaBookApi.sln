@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaBookApi", "BaBookApi\BaBookApi.csproj", "{06DDEAC1-8306-45CA-B635-4A02D921867D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{D993D79B-592F-4EAD-9AF3-DF42C098071B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{B8EBCC79-3141-4193-862A-E9EAB7A2134D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06DDEAC1-8306-45CA-B635-4A02D921867D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06DDEAC1-8306-45CA-B635-4A02D921867D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06DDEAC1-8306-45CA-B635-4A02D921867D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06DDEAC1-8306-45CA-B635-4A02D921867D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D993D79B-592F-4EAD-9AF3-DF42C098071B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D993D79B-592F-4EAD-9AF3-DF42C098071B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D993D79B-592F-4EAD-9AF3-DF42C098071B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D993D79B-592F-4EAD-9AF3-DF42C098071B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8EBCC79-3141-4193-862A-E9EAB7A2134D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8EBCC79-3141-4193-862A-E9EAB7A2134D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8EBCC79-3141-4193-862A-E9EAB7A2134D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8EBCC79-3141-4193-862A-E9EAB7A2134D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4B4B132-E77B-4B33-BD76-51E970D0F88B}
+	EndGlobalSection
+EndGlobal
