@@ -26,6 +26,22 @@ namespace BaBook_Backend.Migrations
 
             context.Groups.Add((group));
 
+            User user1 = new User()
+            {
+                Name = "admin"
+
+            };
+
+            context.Users.Add((user1));
+
+            User user2 = new User()
+            {
+                Name = "guest"
+            };
+
+            context.Users.Add((user2));
+
+
             Event newEvent = new Event()
             {
                 OfGroup = new Group(),
