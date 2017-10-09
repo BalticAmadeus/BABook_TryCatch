@@ -13,6 +13,7 @@ namespace BaBook_Backend.Mapper
         {
             return new Event()
             {
+                EventId = model.EventId,
                 AttendingUsers = new List<User>(),
                 OfGroup = new Group(),
                 OwnerUser = new User(),
@@ -26,6 +27,7 @@ namespace BaBook_Backend.Mapper
         {
             return new Event()
             {
+                EventId = model.EventId,
                 AttendingUsers = new List<User>(),
                 OfGroup = new Group(),
                 OwnerUser = new User(),

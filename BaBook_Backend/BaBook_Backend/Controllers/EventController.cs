@@ -58,5 +58,16 @@ namespace BaBook_Backend.Controllers
                 return Ok();
             }
         }
+
+        [HttpDelete]
+        [Route("api/events/{id}")]
+        public IHttpActionResult UpdateEvent(int id)
+        {
+            using (var repository = new EventRepository())
+            {
+                repository.Remove(repository.FirstOrDefault(x => x.EventId == id));
+                return Ok();
+            }
+        }
     }
 }

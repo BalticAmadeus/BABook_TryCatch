@@ -43,13 +43,13 @@ namespace BaBook_Backend.Migrations
 
             Event newEvent = new Event()
             {
-                OfGroup = new Group(),
-                OwnerUser = new User(),
                 AttendingUsers = new List<User>(),
                 DateOfOccurance = new DateTime(1997,11,24, 15,25,25),
                 Description = "TESTASSS",
                 Location = "Snekutis",
-                Title = "BeerPong"
+                Title = "BeerPong",
+                OfGroup = group,
+                OwnerUser = user1
             };
 
             context.Events.AddOrUpdate(newEvent);
