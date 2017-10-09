@@ -6,7 +6,7 @@ using BaBook_Backend.Models;
 
 namespace BaBook_Backend.Repositories
 {
-    public class GroupRepository : BaseRepository
+    public class GroupRepository : BaseRepository<Group>
     {
     }
 }

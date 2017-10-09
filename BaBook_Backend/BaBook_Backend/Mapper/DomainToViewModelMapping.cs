@@ -16,7 +16,8 @@ namespace BaBook_Backend.Mapper
                 EventId = model.EventId,
                 Title = model.Title,
                 Location = model.Location,
-                DateOfOccurance = model.DateOfOccurance
+                DateOfOccurance = model.DateOfOccurance,
+                Description = model.Description
             };
         }
         public static CreateEventViewModel MapNewEventViewModel(Event model)
@@ -27,6 +28,7 @@ namespace BaBook_Backend.Mapper
                 Title = model.Title,
                 Location = model.Location,
                 DateOfOccurance = model.DateOfOccurance,
+                Description = model.Description,
                 GroupId = model.OfGroup.GroupId,
                 OwnerId = model.OwnerUser.UserId
             };

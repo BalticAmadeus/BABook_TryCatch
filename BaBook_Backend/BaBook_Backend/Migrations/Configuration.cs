@@ -18,13 +18,13 @@ namespace BaBook_Backend.Migrations
 
         protected override void Seed(DataContext context)
         {
+
             Group group = new Group()
             {
-                GroupId = 1,
                 Name = "ALUS"
             };
 
-            context.Groups.Add((group));
+            context.Groups.AddOrUpdate(group);
 
             User user1 = new User()
             {
@@ -48,11 +48,12 @@ namespace BaBook_Backend.Migrations
                 OwnerUser = new User(),
                 AttendingUsers = new List<User>(),
                 DateOfOccurance = new DateTime(1997,11,24, 15,25,25),
+                Description = "TESTASSS",
                 Location = "Snekutis",
                 Title = "BeerPong"
             };
 
-            context.Events.Add(newEvent);
+            context.Events.AddOrUpdate(newEvent);
 
             base.Seed(context);
         }
