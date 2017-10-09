@@ -32,14 +32,13 @@ namespace BaBook_Backend.Migrations
 
             };
 
-            context.Users.Add((user1));
-
             User user2 = new User()
             {
                 Name = "guest"
             };
 
-            context.Users.Add((user2));
+            context.Users.AddOrUpdate(user1);
+            context.Users.AddOrUpdate(user2);
 
 
             Event newEvent = new Event()
@@ -54,7 +53,7 @@ namespace BaBook_Backend.Migrations
             };
 
             context.Events.AddOrUpdate(newEvent);
-
+            context.SaveChanges();
             base.Seed(context);
         }
     }
