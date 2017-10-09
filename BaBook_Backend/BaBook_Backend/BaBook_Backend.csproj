@@ -202,6 +202,10 @@
     <Compile Include="Migrations\201710061457530_initial.Designer.cs">
       <DependentUpon>201710061457530_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710090850157_test.cs" />
+    <Compile Include="Migrations\201710090850157_test.Designer.cs">
+      <DependentUpon>201710090850157_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Group.cs" />
@@ -267,6 +271,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710061457530_initial.resx">
       <DependentUpon>201710061457530_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710090850157_test.resx">
+      <DependentUpon>201710090850157_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
