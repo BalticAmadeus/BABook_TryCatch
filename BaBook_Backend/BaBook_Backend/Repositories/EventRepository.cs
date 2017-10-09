@@ -9,7 +9,7 @@ using BaBook_Backend.ViewModels;
 
 namespace BaBook_Backend.Repositories
 {
-    public class EventRepository : BaseRepository
+    public class EventRepository : BaseRepository<Event>
     {
         public void Add(Event model)
         {
