@@ -18,10 +18,15 @@ namespace BaBook_Backend.Repositories
             _context.Events.Add(model);
         }
 
-        public List<Event> Get()
+        public void Update(Event model)
         {
-            return _context.Events.ToList();
+            var eventToUpdate = FirstOrDefault(x => x.EventId == model.EventId);
+
+            eventToUpdate.Title = model.Title;
+            eventToUpdate.DateOfOccurance = model.DateOfOccurance;
+            eventToUpdate.Location = model.Location;
+            eventToUpdate.Description = model.Description;
         }
-        
+
     }
 }

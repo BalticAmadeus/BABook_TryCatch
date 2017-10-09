@@ -206,6 +206,10 @@
     <Compile Include="Migrations\201710090850157_test.Designer.cs">
       <DependentUpon>201710090850157_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710091036398_Descfield.cs" />
+    <Compile Include="Migrations\201710091036398_Descfield.Designer.cs">
+      <DependentUpon>201710091036398_Descfield.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Group.cs" />
@@ -274,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710090850157_test.resx">
       <DependentUpon>201710090850157_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710091036398_Descfield.resx">
+      <DependentUpon>201710091036398_Descfield.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

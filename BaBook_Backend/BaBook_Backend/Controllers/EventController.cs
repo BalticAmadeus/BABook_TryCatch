@@ -7,6 +7,7 @@ using BaBook_Backend.Mapper;
 using BaBook_Backend.Models;
 using BaBook_Backend.Repositories;
 using BaBook_Backend.ViewModels;
+using Microsoft.Ajax.Utilities;
 
 namespace BaBook_Backend.Controllers
 {
@@ -53,8 +54,7 @@ namespace BaBook_Backend.Controllers
         {
             using (var repository = new EventRepository())
             {
-                var newEvent = ViewModelToDomainMapping.MapEvent(model);
-                repository.Update(model);
+                repository.Update(ViewModelToDomainMapping.MapEvent(model));
                 return Ok();
             }
         }
