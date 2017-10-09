@@ -196,6 +196,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mapper\DomainToViewModelMapping.cs" />
+    <Compile Include="Mapper\ViewModelToDomainMapping.cs" />
     <Compile Include="Migrations\201710061457530_initial.cs" />
     <Compile Include="Migrations\201710061457530_initial.Designer.cs">
       <DependentUpon>201710061457530_initial.cs</DependentUpon>
@@ -208,6 +210,7 @@
     <Compile Include="Repositories\EventRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\GroupRepository.cs" />
+    <Compile Include="ViewModels\CreateEventViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
