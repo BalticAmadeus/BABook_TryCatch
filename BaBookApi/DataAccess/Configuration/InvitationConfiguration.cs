@@ -13,7 +13,7 @@ namespace DataAccess.Configuration
         public InvitationConfiguration()
         {
             ToTable(nameof(Invitation));
-            HasKey(x => new {x.EventId, x.UserId});
+            HasKey(x => x.InvitationId);
         }
     }
 }

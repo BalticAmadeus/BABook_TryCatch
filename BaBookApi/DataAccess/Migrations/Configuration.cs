@@ -18,6 +18,7 @@ namespace DataAccess.Migrations
 
         protected override void Seed(DataContext context)
         {
+            if (context.Groups.Any()) return;
 
             Group group = new Group()
             {

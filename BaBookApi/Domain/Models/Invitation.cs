@@ -9,8 +9,9 @@ namespace Domain.Models
 {
     public class Invitation
     {
-        public int EventId { get; set; }
-        public int UserId { get; set; }
+        public int InvitationId { get; set; }
+        public virtual Event Event { get; set; }
+        public virtual User User { get; set; }
         public Enums.EventResponse EventResponse { get; set; }
     }
 }

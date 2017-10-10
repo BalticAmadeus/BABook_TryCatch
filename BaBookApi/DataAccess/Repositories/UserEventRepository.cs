@@ -36,5 +36,7 @@ namespace DataAccess.Repositories
             return Event.AttendingUsers;
         }
 
+
+
     }
 }
