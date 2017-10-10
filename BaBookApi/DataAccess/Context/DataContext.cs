@@ -14,6 +14,7 @@ namespace DataAccess.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
 
         public DataContext() : base("DataContext")
         {

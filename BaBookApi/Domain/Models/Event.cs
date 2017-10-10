@@ -16,6 +16,8 @@ namespace Domain.Models
 
         public virtual User OwnerUser { get; set; }
         public virtual Group OfGroup { get; set; }
+
         public virtual List<User> AttendingUsers { get; set; }
+        public virtual List<Invitation> SentInvitations { get; set; }
     }
 }
