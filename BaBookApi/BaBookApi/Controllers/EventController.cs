@@ -12,7 +12,7 @@ namespace BaBookApi.Controllers
 {
     public class EventController : ApiController
     {
-
+        [AllowAnonymous]
         [Route("api/events")]
         public IHttpActionResult GetEvents()
         {

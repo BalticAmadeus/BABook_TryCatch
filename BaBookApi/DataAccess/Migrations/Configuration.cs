@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using DataAccess.Context;
+using Domain.Models;
+
 namespace DataAccess.Migrations
 {
     using System;
@@ -12,20 +16,45 @@ namespace DataAccess.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DataAccess.Context.DataContext context)
+        protected override void Seed(DataContext context)
         {
-            //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            Group group = new Group()
+            {
+                Name = "ALUS"
+            };
+
+            context.Groups.AddOrUpdate(group);
+
+            User user1 = new User()
+            {
+                Name = "admin"
+
+            };
+
+            User user2 = new User()
+            {
+                Name = "guest"
+            };
+
+            context.Users.AddOrUpdate(user1);
+            context.Users.AddOrUpdate(user2);
+
+
+            Event newEvent = new Event()
+            {
+                AttendingUsers = new List<User>(),
+                DateOfOccurance = new DateTime(1997, 11, 24, 15, 25, 25),
+                Description = "TESTASSS",
+                Location = "Snekutis",
+                Title = "BeerPong",
+                OfGroup = group,
+                OwnerUser = user1
+            };
+
+            context.Events.AddOrUpdate(newEvent);
+            context.SaveChanges();
+            base.Seed(context);
         }
     }
 }
