@@ -19,7 +19,7 @@ namespace DataAccess.Repositories
             _context = new DataContext();
         }
 
-        public void addUserToEvent(int eventId, int userId)
+        public void AddUserToEvent(int eventId, int userId)
         {
             var User = _context.Users.Find(userId);
             var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
@@ -30,7 +30,7 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public List<User> getAllParticipants(int eventId)
+        public List<User> GetEventParticipants(int eventId)
         {
             var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
             return Event.AttendingUsers;

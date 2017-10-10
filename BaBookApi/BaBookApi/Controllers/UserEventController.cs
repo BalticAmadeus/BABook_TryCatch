@@ -19,19 +19,19 @@ namespace BaBookApi.Controllers
         {
             var repository = new UserEventRepository();
 
-            repository.addUserToEvent(eventId,userId);
+            repository.AddUserToEvent(eventId,userId);
 
             return Ok();
         }
 
         [Route("api/userevent/{eventId}")]
         [HttpGet]
-        public IHttpActionResult getAllParticipants(int eventId)
+        public IHttpActionResult GetEventParticipants(int eventId)
         {
             var repository = new UserEventRepository();
-            var eventUsers = repository.getAllParticipants(eventId);
-            var eventUsersVM = new List<UserViewModel>();
+            var eventUsers = repository.GetEventParticipants(eventId);
 
+            var eventUsersVM = new List<UserViewModel>();
             eventUsers.ForEach(x => eventUsersVM.Add(DomainToViewModelMapping.MapUserViewModel(x)));
 
             return Ok(eventUsersVM);
