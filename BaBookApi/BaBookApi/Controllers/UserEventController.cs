@@ -13,7 +13,6 @@ namespace BaBookApi.Controllers
 {
     public class UserEventController : ApiController
     {
-        [AllowAnonymous]
         [Route("api/userevent/{eventId}/{userId}")]
         [HttpPost]
         public IHttpActionResult AddUserToEvent(int eventId, int userId)

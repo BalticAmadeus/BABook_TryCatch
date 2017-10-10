@@ -15,6 +15,7 @@ namespace DataAccess.Configuration
             ToTable(nameof(Event));
             HasKey(x => x.EventId);
             HasMany(x => x.AttendingUsers).WithMany(u => u.AttendedEvents);
+            HasMany(x => x.SentInvitations);
         }
     }
 }

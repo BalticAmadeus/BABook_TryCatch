@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201710091213315_initial.Designer.cs">
       <DependentUpon>201710091213315_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710101109031_Added Invitations.cs" />
+    <Compile Include="Migrations\201710101109031_Added Invitations.Designer.cs">
+      <DependentUpon>201710101109031_Added Invitations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -86,6 +90,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710091213315_initial.resx">
       <DependentUpon>201710091213315_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710101109031_Added Invitations.resx">
+      <DependentUpon>201710101109031_Added Invitations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
