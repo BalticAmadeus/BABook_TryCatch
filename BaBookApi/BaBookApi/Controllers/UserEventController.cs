@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using BaBookApi.Mapping;
+using BaBookApi.ViewModels;
 using Domain.Models;
 using DataAccess.Repositories;
 
@@ -20,6 +22,19 @@ namespace BaBookApi.Controllers
             repository.addUserToEvent(eventId,userId);
 
             return Ok();
+        }
+
+        [Route("api/userevent/{eventId}")]
+        [HttpGet]
+        public IHttpActionResult getAllParticipants(int eventId)
+        {
+            var repository = new UserEventRepository();
+            var eventUsers = repository.getAllParticipants(eventId);
+            var eventUsersVM = new List<UserViewModel>();
+
+            eventUsers.ForEach(x => eventUsersVM.Add(DomainToViewModelMapping.MapUserViewModel(x)));
+
+            return Ok(eventUsersVM);
         }
     }
 }
