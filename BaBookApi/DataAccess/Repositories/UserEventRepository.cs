@@ -29,5 +29,12 @@ namespace DataAccess.Repositories
             _context.Events.AddOrUpdate(Event);
             _context.SaveChanges();
         }
+
+        public List<User> getAllParticipants(int eventId)
+        {
+            var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
+            return Event.AttendingUsers;
+        }
+
     }
 }

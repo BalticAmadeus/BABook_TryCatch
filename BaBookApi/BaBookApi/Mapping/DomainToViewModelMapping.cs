@@ -33,5 +33,14 @@ namespace BaBookApi.Mapping
                 OwnerId = model.OwnerUser.UserId
             };
         }
+
+        public static UserViewModel MapUserViewModel(User model)
+        {
+            return new UserViewModel()
+            {
+                UserId = model.UserId,
+                Name = model.Name
+            };
+        }
     }
 }
