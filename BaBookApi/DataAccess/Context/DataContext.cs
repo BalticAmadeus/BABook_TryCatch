@@ -31,6 +31,7 @@ namespace DataAccess.Context
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new GroupConfiguration());
             modelBuilder.Configurations.Add(new EventConfiguration());
+            modelBuilder.Configurations.Add(new InvitationConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
