@@ -25,6 +25,5 @@ namespace DataAccess.Repositories
             eventToUpdate.Location = model.Location;
             eventToUpdate.Description = model.Description;
         }
-
     }
 }
