@@ -41,6 +41,8 @@ namespace DataAccess.Repositories
             return Event.Attendances.Select(x => x.User).ToList();
         }
 
+
+
         public void SendInvitation(int eventId, int userId)
         {
             var user = _context.Users.Find(userId);
@@ -58,5 +60,10 @@ namespace DataAccess.Repositories
             _context.UserEventAttendances.Add(attendance);
             _context.SaveChanges();
         }
+        
+
+
+
+
     }
 }
