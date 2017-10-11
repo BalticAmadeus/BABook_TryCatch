@@ -7,11 +7,11 @@ using Domain.Utility;
 
 namespace Domain.Models
 {
-    public class Invitation
+    public class UserEventAttendance
     {
-        public int InvitationId { get; set; }
-        public virtual Event Event { get; set; }
+        public int AttendanceId { get; set; }
         public virtual User User { get; set; }
-        public Enums.EventResponse EventResponse { get; set; }
+        public virtual Event Event { get; set; }
+        public Enums.EventResponse Response { get; set; } = Enums.EventResponse.Unanswered;
     }
 }

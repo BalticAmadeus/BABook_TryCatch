@@ -14,7 +14,7 @@ namespace DataAccess.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Event> Events { get; set; }
-        public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<UserEventAttendance> UserEventAttendances { get; set; }
 
         public DataContext() : base("DataContext")
         {
@@ -31,7 +31,7 @@ namespace DataAccess.Context
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new GroupConfiguration());
             modelBuilder.Configurations.Add(new EventConfiguration());
-            modelBuilder.Configurations.Add(new InvitationConfiguration());
+            modelBuilder.Configurations.Add(new UserEventAttendanceConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

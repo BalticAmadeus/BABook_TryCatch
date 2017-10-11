@@ -12,7 +12,6 @@ namespace Domain.Models
         public string Name { get; set; }
 
         public virtual List<Event> CreatedEvents { get; set; }
-        public virtual List<Event> AttendedEvents { get; set; }
-        public virtual List<Invitation> Invitations { get; set; }
+        public virtual List<UserEventAttendance> AttendedEvents { get; set; }
     }
 }

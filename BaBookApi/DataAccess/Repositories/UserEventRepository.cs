@@ -22,35 +22,37 @@ namespace DataAccess.Repositories
 
         public void AddUserToEvent(int eventId, int userId)
         {
-            var User = _context.Users.Find(userId);
-            var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
+            var user = _context.Users.Find(userId);
+            var activeEvent = _context.Events.Find(eventId);
 
-            Event.AttendingUsers.Add(User);
+            var attendance = new UserEventAttendance()
+            {
+                Event = activeEvent,
+                User = user,
+            };
 
-            _context.Events.AddOrUpdate(Event);
+            _context.UserEventAttendances.Add(attendance);
             _context.SaveChanges();
         }
 
         public List<User> GetEventParticipants(int eventId)
         {
-            var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
-            return Event.AttendingUsers;
+            var Event = _context.Events.Include(x => x.Attendances).FirstOrDefault(x => x.EventId == eventId);
+            return Event.Attendances.Select(x => x.User).ToList();
         }
 
         public void SendInvitation(int eventId, int userId)
         {
-            var user = _context.Users.Include(x => x.Invitations).FirstOrDefault(x => x.UserId == userId);
+            var user = _context.Users.Find(userId);
+            var activeEvent = _context.Events.Find(eventId);
 
-            var invitation = new Invitation()
+            var attendance = new UserEventAttendance()
             {
-                Event = _context.Events.Find(eventId),
-                EventResponse = Enums.EventResponse.Unanswered,
-                User = user
+                User = user,
+                Event = activeEvent
             };
 
-            user.Invitations.Add(invitation);
-
-            _context.Users.AddOrUpdate(user);
+            _context.UserEventAttendances.Add(attendance);
             _context.SaveChanges();
         }
     }
