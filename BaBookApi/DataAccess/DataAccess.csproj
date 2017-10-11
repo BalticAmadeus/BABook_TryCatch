@@ -59,26 +59,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\CommentConfiguration.cs" />
     <Compile Include="Configuration\EventConfiguration.cs" />
     <Compile Include="Configuration\GroupConfiguration.cs" />
-    <Compile Include="Configuration\InvitationConfiguration.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />
+    <Compile Include="Configuration\UserEventAttendanceConfiguration.cs" />
     <Compile Include="Context\DataContext.cs" />
-    <Compile Include="Migrations\201710091213315_initial.cs" />
-    <Compile Include="Migrations\201710091213315_initial.Designer.cs">
-      <DependentUpon>201710091213315_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710101109031_Added Invitations.cs" />
-    <Compile Include="Migrations\201710101109031_Added Invitations.Designer.cs">
-      <DependentUpon>201710101109031_Added Invitations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710101116235_invitationcfg.cs" />
-    <Compile Include="Migrations\201710101116235_invitationcfg.Designer.cs">
-      <DependentUpon>201710101116235_invitationcfg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710101135486_invitationRemastered.cs" />
-    <Compile Include="Migrations\201710101135486_invitationRemastered.Designer.cs">
-      <DependentUpon>201710101135486_invitationRemastered.cs</DependentUpon>
+    <Compile Include="Migrations\201710111226214_initial.cs" />
+    <Compile Include="Migrations\201710111226214_initial.Designer.cs">
+      <DependentUpon>201710111226214_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,17 +86,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710091213315_initial.resx">
-      <DependentUpon>201710091213315_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710101109031_Added Invitations.resx">
-      <DependentUpon>201710101109031_Added Invitations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710101116235_invitationcfg.resx">
-      <DependentUpon>201710101116235_invitationcfg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710101135486_invitationRemastered.resx">
-      <DependentUpon>201710101135486_invitationRemastered.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710111226214_initial.resx">
+      <DependentUpon>201710111226214_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

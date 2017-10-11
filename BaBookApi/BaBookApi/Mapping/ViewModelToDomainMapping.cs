@@ -14,7 +14,7 @@ namespace BaBookApi.Mapping
             return new Event()
             {
                 EventId = model.EventId,
-                AttendingUsers = new List<User>(),
+                Attendances= new List<UserEventAttendance>(),
                 OfGroup = new Group(),
                 OwnerUser = new User(),
                 DateOfOccurance = model.DateOfOccurance,
@@ -28,7 +28,7 @@ namespace BaBookApi.Mapping
             return new Event()
             {
                 EventId = model.EventId,
-                AttendingUsers = new List<User>(),
+                Attendances = new List<UserEventAttendance>(),
                 OfGroup = new Group(),
                 OwnerUser = new User(),
                 DateOfOccurance = model.DateOfOccurance,

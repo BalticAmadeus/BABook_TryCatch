@@ -8,12 +8,12 @@ using Domain.Models;
 
 namespace DataAccess.Configuration
 {
-    public class InvitationConfiguration : EntityTypeConfiguration<Invitation>
+    public class UserEventAttendanceConfiguration : EntityTypeConfiguration<UserEventAttendance>
     {
-        public InvitationConfiguration()
+        public UserEventAttendanceConfiguration()
         {
-            ToTable(nameof(Invitation));
-            HasKey(x => x.InvitationId);
+            ToTable(nameof(UserEventAttendance));
+            HasKey(x => x.AttendanceId);
         }
     }
 }

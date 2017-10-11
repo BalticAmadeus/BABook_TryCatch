@@ -44,7 +44,7 @@ namespace DataAccess.Migrations
 
             Event newEvent = new Event()
             {
-                AttendingUsers = new List<User>(),
+                Attendances= new List<UserEventAttendance>(),
                 DateOfOccurance = new DateTime(1997, 11, 24, 15, 25, 25),
                 Description = "TESTASSS",
                 Location = "Snekutis",

@@ -22,46 +22,47 @@ namespace DataAccess.Repositories
 
         public void AddUserToEvent(int eventId, int userId)
         {
-            var User = _context.Users.Find(userId);
-            var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
+            var user = _context.Users.Find(userId);
+            var activeEvent = _context.Events.Find(eventId);
 
-            if(User == null) throw new Exception("There is no such User");
-            if(Event == null) throw new Exception("There is no such Event!");
+            if(user == null) throw new Exception("There is no such User");
+            if(activeEvent == null) throw new Exception("There is no such Event!");
 
-            Event.AttendingUsers.Add(User);
+            var attendance = new UserEventAttendance()
+            {
+                Event = activeEvent,
+                User = user,
+                Response = Enums.EventResponse.Going
+            };
 
-            _context.Events.AddOrUpdate(Event);
+            _context.UserEventAttendances.Add(attendance);
             _context.SaveChanges();
         }
 
         public List<User> GetEventParticipants(int eventId)
         {
-            var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
+            var Event = _context.Events.Include(x => x.Attendances).FirstOrDefault(x => x.EventId == eventId);
+            
+ 	    if(Event == null) throw new Exception("There is no such Event!");
 
-            if(Event == null) throw new Exception("There is no such Event!");
-
-            return Event.AttendingUsers;
+            return Event.Attendances.Select(x => x.User).ToList();           
         }
 
         public void SendInvitation(int eventId, int userId)
         {
-            var user = _context.Users.Include(x => x.Invitations).FirstOrDefault(x => x.UserId == userId);
+            var user = _context.Users.Find(userId);
+            var activeEvent = _context.Events.Find(eventId);
 
-            if (user == null)
+            if (user == null) throw new Exception("There is no such User!");
+            if (activeEvent == null) throw new Exception("There is no such Event!");
+            
+            var attendance = new UserEventAttendance()
             {
-                throw new Exception("There is no such user!");
-            }
-
-            var invitation = new Invitation()
-            {
-                Event = _context.Events.Find(eventId),
-                EventResponse = Enums.EventResponse.Unanswered,
-                User = user
+                User = user,
+                Event = activeEvent
             };
 
-            user.Invitations.Add(invitation);
-
-            _context.Users.AddOrUpdate(user);
+            _context.UserEventAttendances.Add(attendance);
             _context.SaveChanges();
         }
     }
