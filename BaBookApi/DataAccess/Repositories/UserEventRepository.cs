@@ -41,6 +41,11 @@ namespace DataAccess.Repositories
         {
             var user = _context.Users.Include(x => x.Invitations).FirstOrDefault(x => x.UserId == userId);
 
+            if (user == null)
+            {
+                throw new Exception("There is no such user!");
+            }
+
             var invitation = new Invitation()
             {
                 Event = _context.Events.Find(eventId),

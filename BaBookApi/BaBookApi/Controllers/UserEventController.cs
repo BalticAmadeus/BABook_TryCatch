@@ -43,7 +43,14 @@ namespace BaBookApi.Controllers
         {
             var repository = new UserEventRepository();
 
-            repository.SendInvitation(eventId, userId);
+            try
+            {
+                repository.SendInvitation(eventId, userId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok();
         }
