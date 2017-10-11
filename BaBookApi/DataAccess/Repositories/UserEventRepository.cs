@@ -39,7 +39,7 @@ namespace DataAccess.Repositories
 
         public void SendInvitation(int eventId, int userId)
         {
-            var user = _context.Users.Find(userId);
+            var user = _context.Users.Include(x => x.Invitations).FirstOrDefault(x => x.UserId == userId);
 
             var invitation = new Invitation()
             {

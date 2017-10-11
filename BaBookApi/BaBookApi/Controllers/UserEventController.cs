@@ -36,5 +36,16 @@ namespace BaBookApi.Controllers
 
             return Ok(eventUsersVM);
         }
+
+        [Route("api/userevent/send/{eventId}/{userId}")]
+        [HttpPost]
+        public IHttpActionResult SendInvitation(int eventId, int userId)
+        {
+            var repository = new UserEventRepository();
+
+            repository.SendInvitation(eventId, userId);
+
+            return Ok();
+        }
     }
 }
