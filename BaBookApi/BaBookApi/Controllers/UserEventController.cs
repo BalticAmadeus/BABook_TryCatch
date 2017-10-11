@@ -77,19 +77,17 @@ namespace BaBookApi.Controllers
         [Route("api/userevent/{attendanceId}/{response}")]
         public IHttpActionResult ChangeResponse(int attendanceId, Enums.EventResponse response)
         {
-            var repository = new UserEventRepository();
-
             try
             {
-                repository.ChangeResponse(attendanceId, response);
-                return Ok();
+                _repository.ChangeResponse(attendanceId, response);
+                
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
 
+            return Ok();
         } 
-        
     }
 }
