@@ -13,5 +13,6 @@ namespace Domain.Models
 
         public virtual List<Event> CreatedEvents { get; set; }
         public virtual List<UserEventAttendance> AttendedEvents { get; set; }
+        public virtual List<Comment> Comments { get; set; }
     }
 }

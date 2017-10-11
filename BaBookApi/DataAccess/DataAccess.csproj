@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\CommentConfiguration.cs" />
     <Compile Include="Configuration\EventConfiguration.cs" />
     <Compile Include="Configuration\GroupConfiguration.cs" />
     <Compile Include="Configuration\UserConfiguration.cs" />

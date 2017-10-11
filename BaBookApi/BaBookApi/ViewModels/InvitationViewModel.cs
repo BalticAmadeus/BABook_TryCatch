@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Domain.Utility;
 
 namespace BaBookApi.ViewModels
 {
-    public class UserViewModel
+    public class InvitationViewModel
     {
-        public int UserId { get; set; }
-        public string Name { get; set; }
+        public int InvitationId { get; set; }
     }
 }

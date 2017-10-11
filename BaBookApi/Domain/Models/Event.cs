@@ -18,5 +18,6 @@ namespace Domain.Models
         public virtual Group OfGroup { get; set; }
 
         public virtual List<UserEventAttendance> Attendances { get; set; }
+        public virtual List<Comment> Comments { get; set; }
     }
 }

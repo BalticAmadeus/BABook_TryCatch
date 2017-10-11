@@ -15,6 +15,7 @@ namespace DataAccess.Configuration
             ToTable(nameof(Event));
             HasKey(x => x.EventId);
             HasMany(x => x.Attendances);
+            HasMany(x => x.Comments);
         }
     }
 }
