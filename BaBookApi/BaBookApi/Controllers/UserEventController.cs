@@ -14,13 +14,25 @@ namespace BaBookApi.Controllers
 {
     public class UserEventController : ApiController
     {
+        private UserEventRepository _repository;
+
+        public UserEventController()
+        {
+                _repository = new UserEventRepository();
+        }
+
         [Route("api/userevent/{eventId}/{userId}")]
         [HttpPost]
         public IHttpActionResult AddUserToEvent(int eventId, int userId)
         {
-            var repository = new UserEventRepository();
-
-            repository.AddUserToEvent(eventId,userId);
+            try
+            {
+                _repository.AddUserToEvent(eventId, userId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok();
         }
@@ -29,11 +41,18 @@ namespace BaBookApi.Controllers
         [HttpGet]
         public IHttpActionResult GetEventParticipants(int eventId)
         {
-            var repository = new UserEventRepository();
-            var eventUsers = repository.GetEventParticipants(eventId);
-
             var eventUsersVM = new List<UserViewModel>();
-            eventUsers.ForEach(x => eventUsersVM.Add(DomainToViewModelMapping.MapUserViewModel(x)));
+
+            try
+            {
+                var eventUsers = _repository.GetEventParticipants(eventId);
+
+                eventUsers.ForEach(x => eventUsersVM.Add(DomainToViewModelMapping.MapUserViewModel(x)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok(eventUsersVM);
         }
@@ -42,11 +61,9 @@ namespace BaBookApi.Controllers
         [HttpPost]
         public IHttpActionResult SendInvitation(int eventId, int userId)
         {
-            var repository = new UserEventRepository();
-
             try
             {
-                repository.SendInvitation(eventId, userId);
+                _repository.SendInvitation(eventId, userId);
             }
             catch (Exception ex)
             {

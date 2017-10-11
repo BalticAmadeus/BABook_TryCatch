@@ -14,6 +14,7 @@ namespace DataAccess.Configuration
         {
             ToTable(nameof(Comment));
             HasKey(x => x.CommentId);
+            Property(x => x.CommentText).HasMaxLength(255);
         }
     }
 }

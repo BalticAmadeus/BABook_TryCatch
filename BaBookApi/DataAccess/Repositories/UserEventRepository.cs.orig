@@ -25,15 +25,18 @@ namespace DataAccess.Repositories
             var user = _context.Users.Find(userId);
             var activeEvent = _context.Events.Find(eventId);
 
-            if(user == null) throw new Exception("There is no such User");
-            if(activeEvent == null) throw new Exception("There is no such Event!");
+<<<<<<< HEAD
+            if(User == null) throw new Exception("There is no such User");
+            if(Event == null) throw new Exception("There is no such Event!");
 
+            Event.AttendingUsers.Add(User);
+=======
             var attendance = new UserEventAttendance()
             {
                 Event = activeEvent,
                 User = user,
-                Response = Enums.EventResponse.Going
             };
+>>>>>>> b546ba7b71bc9ccd5516280f756d62d1109a4cc0
 
             _context.UserEventAttendances.Add(attendance);
             _context.SaveChanges();
@@ -41,14 +44,17 @@ namespace DataAccess.Repositories
 
         public List<User> GetEventParticipants(int eventId)
         {
+<<<<<<< HEAD
+            var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
+
+            if(Event == null) throw new Exception("There is no such Event!");
+
+            return Event.AttendingUsers;
+=======
             var Event = _context.Events.Include(x => x.Attendances).FirstOrDefault(x => x.EventId == eventId);
-            
- 	    if(Event == null) throw new Exception("There is no such Event!");
-
-            return Event.Attendances.Select(x => x.User).ToList();           
+            return Event.Attendances.Select(x => x.User).ToList();
+>>>>>>> b546ba7b71bc9ccd5516280f756d62d1109a4cc0
         }
-
-
 
         public void SendInvitation(int eventId, int userId)
         {
@@ -65,15 +71,6 @@ namespace DataAccess.Repositories
             };
 
             _context.UserEventAttendances.Add(attendance);
-            _context.SaveChanges();
-        }
-
-        public void ChangeResponse(int attendanceId, Enums.EventResponse response)
-        {
-            var attendance = _context.UserEventAttendances.FirstOrDefault(x => x.AttendanceId == attendanceId);
-            if(attendance == null) throw new Exception("Attendance not found");
-
-            attendance.Response = response;
             _context.SaveChanges();
         }
     }

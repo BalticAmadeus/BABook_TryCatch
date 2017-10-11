@@ -8,7 +8,7 @@ using DataAccess.Context;
 
 namespace DataAccess.Repositories
 {
-    public class BaseRepository<T> : IDisposable where T : class
+    public class BaseRepository<T> where T : class
     {
         protected readonly DataContext _context;
 

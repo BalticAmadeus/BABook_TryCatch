@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using BaBookApi.Mapping;
 using BaBookApi.ViewModels;
@@ -12,61 +9,54 @@ namespace BaBookApi.Controllers
 {
     public class EventController : ApiController
     {
+        private readonly EventRepository _repository;
+
+        public EventController()
+        {
+            _repository = new EventRepository();
+        }
+
         [AllowAnonymous]
         [Route("api/events")]
         public IHttpActionResult GetEvents()
         {
-            using (var repository = new EventRepository())
-            {
-                var toReturn = new List<EventViewModel>();
-                var models = repository.GetAll();
-                models.ForEach(x => toReturn.Add(DomainToViewModelMapping.MapEventViewModel(x)));
+            var toReturn = new List<EventViewModel>();
+            var models = _repository.GetAll();
 
-                return Ok(toReturn);
-            }
+            models.ForEach(x => toReturn.Add(DomainToViewModelMapping.MapEventViewModel(x)));
+
+            return Ok(toReturn);
         }
 
         [Route("api/events/{id}")]
         public IHttpActionResult GetEventById(int id)
         {
-            using (var repository = new EventRepository())
-            {
-                return Ok(DomainToViewModelMapping.MapEventViewModel(repository.Get(id)));
-            }
+            return Ok(DomainToViewModelMapping.MapEventViewModel(_repository.Get(id)));
         }
 
         [HttpPost]
         [Route("api/events")]
         public IHttpActionResult CreateEvent(CreateEventViewModel model)
         {
-            using (var repository = new EventRepository())
-            {
-                var newEvent = ViewModelToDomainMapping.MapEvent(model);
-                repository.Add(newEvent, model.OwnerId, model.GroupId);
-                return Ok();
-            }
+            var newEvent = ViewModelToDomainMapping.MapEvent(model);
+            _repository.Add(newEvent, model.OwnerId, model.GroupId);
+            return Ok();
         }
 
         [HttpPut]
         [Route("api/events")]
         public IHttpActionResult UpdateEvent(CreateEventViewModel model)
         {
-            using (var repository = new EventRepository())
-            {
-                repository.Update(ViewModelToDomainMapping.MapEvent(model));
-                return Ok();
-            }
+            _repository.Update(ViewModelToDomainMapping.MapEvent(model));
+            return Ok();
         }
 
         [HttpDelete]
         [Route("api/events/{id}")]
         public IHttpActionResult UpdateEvent(int id)
         {
-            using (var repository = new EventRepository())
-            {
-                repository.Remove(repository.FirstOrDefault(x => x.EventId == id));
-                return Ok();
-            }
+            _repository.Remove(_repository.FirstOrDefault(x => x.EventId == id));
+            return Ok();
         }
     }
 }
