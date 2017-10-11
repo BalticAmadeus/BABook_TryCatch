@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Context;
 using Domain.Models;
+using Domain.Utility;
 
 namespace DataAccess.Repositories
 {
@@ -36,7 +37,21 @@ namespace DataAccess.Repositories
             return Event.AttendingUsers;
         }
 
+        public void SendInvitation(int eventId, int userId)
+        {
+            var user = _context.Users.Find(userId);
 
+            var invitation = new Invitation()
+            {
+                Event = _context.Events.Find(eventId),
+                EventResponse = Enums.EventResponse.Unanswered,
+                User = user
+            };
 
+            user.Invitations.Add(invitation);
+
+            _context.Users.AddOrUpdate(user);
+            _context.SaveChanges();
+        }
     }
 }
