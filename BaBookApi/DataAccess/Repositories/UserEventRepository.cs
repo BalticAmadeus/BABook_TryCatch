@@ -46,6 +46,11 @@ namespace DataAccess.Repositories
             var user = _context.Users.Find(userId);
             var activeEvent = _context.Events.Find(eventId);
 
+            if (user == null)
+            {
+                throw new Exception("There is no such user!");
+            }
+
             var attendance = new UserEventAttendance()
             {
                 User = user,
