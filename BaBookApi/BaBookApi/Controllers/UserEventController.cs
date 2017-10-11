@@ -8,6 +8,7 @@ using BaBookApi.Mapping;
 using BaBookApi.ViewModels;
 using Domain.Models;
 using DataAccess.Repositories;
+using Domain.Utility;
 
 namespace BaBookApi.Controllers
 {
@@ -56,7 +57,7 @@ namespace BaBookApi.Controllers
             return Ok(eventUsersVM);
         }
 
-        [Route("api/userevent/send/{eventId}/{userId}")]
+        [Route("api/userevent/invite/{eventId}/{userId}")]
         [HttpPost]
         public IHttpActionResult SendInvitation(int eventId, int userId)
         {
@@ -72,7 +73,21 @@ namespace BaBookApi.Controllers
             return Ok();
         }
 
-        
+        [HttpPut]
+        [Route("api/userevent/{attendanceId}/{response}")]
+        public IHttpActionResult ChangeResponse(int attendanceId, Enums.EventResponse response)
+        {
+            try
+            {
+                _repository.ChangeResponse(attendanceId, response);
+                
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
+            return Ok();
+        } 
     }
 }

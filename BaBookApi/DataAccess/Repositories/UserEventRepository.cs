@@ -67,15 +67,21 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
+        public void ChangeResponse(int attendanceId, Enums.EventResponse response)
+        {
+            var attendance = _context.UserEventAttendances.FirstOrDefault(x => x.AttendanceId == attendanceId);
+            if(attendance == null) throw new Exception("Attendance not found");
 
+            attendance.Response = response;
+            _context.SaveChanges();
+        }
         public List<Comment> GetEventComments(int eventId)
         {
-            var Event = _context.Events.Include(x=>x.OwnerUser).FirstOrDefault(x=>x.EventId==eventId);
+            var Event = _context.Events.Include(x => x.OwnerUser).FirstOrDefault(x => x.EventId == eventId);
 
             if (Event == null) throw new Exception("There is no such Event!");
 
             return Event.Comments.ToList();
         }
-
     }
 }
