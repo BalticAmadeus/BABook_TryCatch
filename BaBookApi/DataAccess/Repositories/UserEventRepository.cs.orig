@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataAccess.Context;
+using Domain.Models;
+using Domain.Utility;
+
+namespace DataAccess.Repositories
+{
+    public class UserEventRepository
+    {
+        private DataContext _context;
+
+        public UserEventRepository()
+        {
+            _context = new DataContext();
+        }
+
+        public void AddUserToEvent(int eventId, int userId)
+        {
+            var user = _context.Users.Find(userId);
+            var activeEvent = _context.Events.Find(eventId);
+
+<<<<<<< HEAD
+            if(User == null) throw new Exception("There is no such User");
+            if(Event == null) throw new Exception("There is no such Event!");
+
+            Event.AttendingUsers.Add(User);
+=======
+            var attendance = new UserEventAttendance()
+            {
+                Event = activeEvent,
+                User = user,
+            };
+>>>>>>> b546ba7b71bc9ccd5516280f756d62d1109a4cc0
+
+            _context.UserEventAttendances.Add(attendance);
+            _context.SaveChanges();
+        }
+
+        public List<User> GetEventParticipants(int eventId)
+        {
+<<<<<<< HEAD
+            var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
+
+            if(Event == null) throw new Exception("There is no such Event!");
+
+            return Event.AttendingUsers;
+=======
+            var Event = _context.Events.Include(x => x.Attendances).FirstOrDefault(x => x.EventId == eventId);
+            return Event.Attendances.Select(x => x.User).ToList();
+>>>>>>> b546ba7b71bc9ccd5516280f756d62d1109a4cc0
+        }
+
+        public void SendInvitation(int eventId, int userId)
+        {
+            var user = _context.Users.Find(userId);
+            var activeEvent = _context.Events.Find(eventId);
+
+            if (user == null) throw new Exception("There is no such User!");
+            if (activeEvent == null) throw new Exception("There is no such Event!");
+            
+            var attendance = new UserEventAttendance()
+            {
+                User = user,
+                Event = activeEvent
+            };
+
+            _context.UserEventAttendances.Add(attendance);
+            _context.SaveChanges();
+        }
+    }
+}
