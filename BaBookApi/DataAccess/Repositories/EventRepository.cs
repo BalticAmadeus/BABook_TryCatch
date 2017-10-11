@@ -13,7 +13,9 @@ namespace DataAccess.Repositories
         {
             model.OfGroup = _context.Groups.FirstOrDefault(x => x.GroupId == groupId);
             model.OwnerUser = _context.Users.FirstOrDefault(x => x.UserId == ownerId);
+
             _context.Events.Add(model);
+            _context.SaveChanges();
         }
 
         public void Update(Event model)
@@ -24,6 +26,8 @@ namespace DataAccess.Repositories
             eventToUpdate.DateOfOccurance = model.DateOfOccurance;
             eventToUpdate.Location = model.Location;
             eventToUpdate.Description = model.Description;
+
+            _context.SaveChanges();
         }
     }
 }
