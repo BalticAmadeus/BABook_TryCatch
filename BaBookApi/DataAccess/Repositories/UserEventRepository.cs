@@ -13,7 +13,7 @@ namespace DataAccess.Repositories
 {
     public class UserEventRepository
     {
-        private DataContext _context;
+        private readonly DataContext _context;
 
         public UserEventRepository()
         {
@@ -41,7 +41,7 @@ namespace DataAccess.Repositories
 
         public List<User> GetEventParticipants(int eventId)
         {
-            var Event = _context.Events.Include(x => x.Attendances).FirstOrDefault(x => x.EventId == eventId);
+            var Event = _context.Events.Include(x => x.Attendances).SingleOrDefault(x => x.EventId == eventId);
             
  	        if(Event == null) throw new Exception("There is no such Event!");
 
@@ -69,7 +69,7 @@ namespace DataAccess.Repositories
 
         public void ChangeResponse(int attendanceId, Enums.EventResponse response)
         {
-            var attendance = _context.UserEventAttendances.FirstOrDefault(x => x.AttendanceId == attendanceId);
+            var attendance = _context.UserEventAttendances.SingleOrDefault(x => x.AttendanceId == attendanceId);
             if(attendance == null) throw new Exception("Attendance not found");
 
             attendance.Response = response;
@@ -77,7 +77,7 @@ namespace DataAccess.Repositories
         }
         public List<Comment> GetEventComments(int eventId)
         {
-            var Event = _context.Events.Include(x => x.OwnerUser).FirstOrDefault(x => x.EventId == eventId);
+            var Event = _context.Events.Include(x => x.OwnerUser).SingleOrDefault(x => x.EventId == eventId);
 
             if (Event == null) throw new Exception("There is no such Event!");
 
