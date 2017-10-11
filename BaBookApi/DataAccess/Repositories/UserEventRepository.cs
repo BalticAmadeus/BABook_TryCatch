@@ -25,6 +25,9 @@ namespace DataAccess.Repositories
             var User = _context.Users.Find(userId);
             var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
 
+            if(User == null) throw new Exception("There is no such User");
+            if(Event == null) throw new Exception("There is no such Event!");
+
             Event.AttendingUsers.Add(User);
 
             _context.Events.AddOrUpdate(Event);
@@ -34,6 +37,9 @@ namespace DataAccess.Repositories
         public List<User> GetEventParticipants(int eventId)
         {
             var Event = _context.Events.Include(x => x.AttendingUsers).FirstOrDefault(x => x.EventId == eventId);
+
+            if(Event == null) throw new Exception("There is no such Event!");
+
             return Event.AttendingUsers;
         }
 

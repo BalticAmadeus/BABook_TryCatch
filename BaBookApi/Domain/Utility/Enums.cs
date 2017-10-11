@@ -10,10 +10,9 @@ namespace Domain.Utility
     {
         public enum EventResponse  
         {
-            Going,
-            NotGoing,
-            Unanswered
+            Going = 1,
+            NotGoing = 2,
+            Unanswered = 3
         }
-
     }
 }
