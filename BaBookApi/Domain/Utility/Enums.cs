@@ -14,6 +14,5 @@ namespace Domain.Utility
             NotGoing = 2,
             Unanswered = 3
         }
-
     }
 }
