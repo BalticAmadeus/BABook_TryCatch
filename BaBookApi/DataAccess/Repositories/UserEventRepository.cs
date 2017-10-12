@@ -111,5 +111,6 @@ namespace DataAccess.Repositories
 
             return Event.Comments.ToList();
         }
+        
     }
 }
