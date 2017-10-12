@@ -65,13 +65,9 @@
     <Compile Include="Configuration\UserConfiguration.cs" />
     <Compile Include="Configuration\UserEventAttendanceConfiguration.cs" />
     <Compile Include="Context\DataContext.cs" />
-    <Compile Include="Migrations\201710111226214_initial.cs" />
-    <Compile Include="Migrations\201710111226214_initial.Designer.cs">
-      <DependentUpon>201710111226214_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710111411015_IDK WHAT IT IS.cs" />
-    <Compile Include="Migrations\201710111411015_IDK WHAT IT IS.Designer.cs">
-      <DependentUpon>201710111411015_IDK WHAT IT IS.cs</DependentUpon>
+    <Compile Include="Migrations\201710120805100_remoteReset.cs" />
+    <Compile Include="Migrations\201710120805100_remoteReset.Designer.cs">
+      <DependentUpon>201710120805100_remoteReset.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,11 +86,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710111226214_initial.resx">
-      <DependentUpon>201710111226214_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710111411015_IDK WHAT IT IS.resx">
-      <DependentUpon>201710111411015_IDK WHAT IT IS.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710120805100_remoteReset.resx">
+      <DependentUpon>201710120805100_remoteReset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,13 +7,13 @@ namespace DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class IDKWHATITIS : IMigrationMetadata
+    public sealed partial class remoteReset : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IDKWHATITIS));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(remoteReset));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710111411015_IDK WHAT IT IS"; }
+            get { return "201710120805100_remoteReset"; }
         }
         
         string IMigrationMetadata.Source
