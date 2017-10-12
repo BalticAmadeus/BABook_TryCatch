@@ -15,11 +15,11 @@ namespace BaBookApi.Mapping
         {
             var currentEvent = new Event
             {
-                EventId = model.eventId,
-                DateOfOccurance = model.dateOfOccurance,
-                Location = model.location,
-                Title = model.title,
-                Description = model.description
+                EventId = model.EventId,
+                DateOfOccurance = model.DateOfOccurance,
+                Location = model.Location,
+                Title = model.Title,
+                Description = model.Description
             };
 
             currentEvent.Attendances = new List<UserEventAttendance>();

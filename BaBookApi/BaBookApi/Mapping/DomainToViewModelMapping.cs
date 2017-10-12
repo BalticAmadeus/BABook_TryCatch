@@ -13,17 +13,17 @@ namespace BaBookApi.Mapping
         {
             var eventVm = new EventViewModel
             {
-                eventId = model.EventId,
-                title = model.Title,
-                location = model.Location,
-                dateOfOccurance = model.DateOfOccurance,
-                description = model.Description
+                EventId = model.EventId,
+                Title = model.Title,
+                Location = model.Location,
+                DateOfOccurance = model.DateOfOccurance,
+                Description = model.Description
             };
 
             model.Attendances
-                .ForEach(x => eventVm.attendances.Add(x));
+                .ForEach(x => eventVm.Attendances.Add(x));
             model.Comments
-                .ForEach(x => eventVm.comments.Add(x));
+                .ForEach(x => eventVm.Comments.Add(x));
 
             return eventVm;
         }
@@ -32,9 +32,9 @@ namespace BaBookApi.Mapping
         {
             var commentVm = new CommentViewModel
             {
-                commentId = model.CommentId,
-                commentText = model.CommentText,
-                commentTime = model.CommentTime,
+                CommentId = model.CommentId,
+                CommentText = model.CommentText,
+                CommentTime = model.CommentTime,
             };
 
             return commentVm;
@@ -44,8 +44,8 @@ namespace BaBookApi.Mapping
         {
             return new UserViewModel
             {
-                userId = model.UserId,
-                name = model.Name
+                UserId = model.UserId,
+                Name = model.Name
             };
         }
     }
