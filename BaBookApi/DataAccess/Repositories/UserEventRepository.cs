@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -75,6 +76,27 @@ namespace DataAccess.Repositories
             attendance.Response = response;
             _context.SaveChanges();
         }
+
+        public void AddComment(int eventId, int userId, string commentText)
+        {
+            var user = _context.Users.Find(userId);
+            var commentedEvent = _context.Events.Find(eventId);
+
+            if (user == null) throw new Exception("There is no such User!");
+            if (commentedEvent == null) throw new Exception("There is no such Event!");
+
+            var comment = new Comment()
+            {
+                OwnerUser = user,
+                OfEvent = commentedEvent,
+                CommentText = commentText,
+                CommentTime = DateTime.Now
+            };
+
+            commentedEvent.Comments.Add(comment);
+            _context.SaveChanges();
+        }
+
         public List<Comment> GetEventComments(int eventId)
         {
             var Event = _context.Events.Include(x => x.OwnerUser).SingleOrDefault(x => x.EventId == eventId);
