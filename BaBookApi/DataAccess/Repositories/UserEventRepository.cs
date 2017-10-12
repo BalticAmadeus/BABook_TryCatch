@@ -67,9 +67,12 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public void ChangeResponse(int attendanceId, Enums.EventResponse response)
+        public void ChangeResponse(int eventId,int userId, Enums.EventResponse response)
         {
-            var attendance = _context.UserEventAttendances.SingleOrDefault(x => x.AttendanceId == attendanceId);
+            var attendance =
+                _context.UserEventAttendances.SingleOrDefault(
+                    x => x.Event.EventId == eventId && x.User.UserId == userId);
+
             if(attendance == null) throw new Exception("Attendance not found");
 
             attendance.Response = response;

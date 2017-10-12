@@ -74,12 +74,12 @@ namespace BaBookApi.Controllers
         }
 
         [HttpPut]
-        [Route("api/userevent/{attendanceId}/{response}")]
-        public IHttpActionResult ChangeResponse(int attendanceId, Enums.EventResponse response)
+        [Route("api/userevent/{eventId}/{userId}/{response}")]
+        public IHttpActionResult ChangeResponse(int eventId, int userId, Enums.EventResponse response)
         {
             try
             {
-                _repository.ChangeResponse(attendanceId, response);
+                _repository.ChangeResponse(eventId, userId, response);
                 
             }
             catch (Exception ex)
