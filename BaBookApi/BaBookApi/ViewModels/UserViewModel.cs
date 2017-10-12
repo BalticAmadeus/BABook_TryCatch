@@ -8,7 +8,7 @@ namespace BaBookApi.ViewModels
 {
     public class UserViewModel
     {
-        public int UserId { get; set; }
-        public string Name { get; set; }
+        public int userId { get; set; }
+        public string name { get; set; }
     }
 }
