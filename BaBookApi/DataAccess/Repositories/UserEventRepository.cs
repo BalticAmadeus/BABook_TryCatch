@@ -83,6 +83,7 @@ namespace DataAccess.Repositories
         public void AddComment(int eventId, int userId, string commentText)
         {
             var user = _context.Users.Find(userId);
+            _context.Entry(user).Collection(x => x.Comments).Load();
             var commentedEvent = _context.Events.Find(eventId);
 
             if (user == null) throw new Exception("There is no such User!");
@@ -95,14 +96,16 @@ namespace DataAccess.Repositories
                 CommentText = commentText,
                 CommentTime = DateTime.Now
             };
-
-            commentedEvent.Comments.Add(comment);
+            
+            user.Comments.Add(comment);
             _context.SaveChanges();
         }
 
         public List<Comment> GetEventComments(int eventId)
         {
-            var Event = _context.Events.Include(x => x.OwnerUser).SingleOrDefault(x => x.EventId == eventId);
+            var Event = _context.Events
+                .Include(x => x.Comments.Select(y => y.OwnerUser))
+                .SingleOrDefault(x => x.EventId == eventId);
 
             if (Event == null) throw new Exception("There is no such Event!");
 

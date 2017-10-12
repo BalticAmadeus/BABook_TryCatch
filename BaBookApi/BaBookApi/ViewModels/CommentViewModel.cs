@@ -12,6 +12,6 @@ namespace BaBookApi.ViewModels
         public string CommentText { get; set; }
         public DateTime CommentTime { get; set; }
 
-        public User OwnerUser { get; set; }
+        public UserViewModel OwnerUser { get; set; }
     }
 }

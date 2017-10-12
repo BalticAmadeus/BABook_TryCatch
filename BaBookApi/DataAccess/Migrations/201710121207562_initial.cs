@@ -3,18 +3,28 @@ namespace DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class remoteReset : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
-            DropForeignKey("dbo.Invitation", "User_UserId", "dbo.User");
-            DropForeignKey("dbo.EventUsers", "Event_EventId", "dbo.Event");
-            DropForeignKey("dbo.EventUsers", "User_UserId", "dbo.User");
-            DropForeignKey("dbo.Invitation", "Event_EventId", "dbo.Event");
-            DropIndex("dbo.Invitation", new[] { "User_UserId" });
-            DropIndex("dbo.Invitation", new[] { "Event_EventId" });
-            DropIndex("dbo.EventUsers", new[] { "Event_EventId" });
-            DropIndex("dbo.EventUsers", new[] { "User_UserId" });
+            CreateTable(
+                "dbo.Event",
+                c => new
+                    {
+                        EventId = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        DateOfOccurance = c.DateTime(nullable: false),
+                        Location = c.String(),
+                        Description = c.String(),
+                        OwnerUser_UserId = c.Int(),
+                        OfGroup_GroupId = c.Int(),
+                    })
+                .PrimaryKey(t => t.EventId)
+                .ForeignKey("dbo.User", t => t.OwnerUser_UserId)
+                .ForeignKey("dbo.Group", t => t.OfGroup_GroupId)
+                .Index(t => t.OwnerUser_UserId)
+                .Index(t => t.OfGroup_GroupId);
+            
             CreateTable(
                 "dbo.UserEventAttendance",
                 c => new
@@ -29,6 +39,15 @@ namespace DataAccess.Migrations
                 .ForeignKey("dbo.Event", t => t.Event_EventId)
                 .Index(t => t.User_UserId)
                 .Index(t => t.Event_EventId);
+            
+            CreateTable(
+                "dbo.User",
+                c => new
+                    {
+                        UserId = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.UserId);
             
             CreateTable(
                 "dbo.Comments",
@@ -46,50 +65,36 @@ namespace DataAccess.Migrations
                 .Index(t => t.OwnerUser_UserId)
                 .Index(t => t.OfEvent_EventId);
             
-            DropTable("dbo.Invitation");
-            DropTable("dbo.EventUsers");
+            CreateTable(
+                "dbo.Group",
+                c => new
+                    {
+                        GroupId = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.GroupId);
+            
         }
         
         public override void Down()
         {
-            CreateTable(
-                "dbo.EventUsers",
-                c => new
-                    {
-                        Event_EventId = c.Int(nullable: false),
-                        User_UserId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Event_EventId, t.User_UserId });
-            
-            CreateTable(
-                "dbo.Invitation",
-                c => new
-                    {
-                        InvitationId = c.Int(nullable: false, identity: true),
-                        EventResponse = c.Int(nullable: false),
-                        User_UserId = c.Int(),
-                        Event_EventId = c.Int(),
-                    })
-                .PrimaryKey(t => t.InvitationId);
-            
+            DropForeignKey("dbo.Event", "OfGroup_GroupId", "dbo.Group");
             DropForeignKey("dbo.Comments", "OfEvent_EventId", "dbo.Event");
             DropForeignKey("dbo.UserEventAttendance", "Event_EventId", "dbo.Event");
+            DropForeignKey("dbo.Event", "OwnerUser_UserId", "dbo.User");
             DropForeignKey("dbo.Comments", "OwnerUser_UserId", "dbo.User");
             DropForeignKey("dbo.UserEventAttendance", "User_UserId", "dbo.User");
             DropIndex("dbo.Comments", new[] { "OfEvent_EventId" });
             DropIndex("dbo.Comments", new[] { "OwnerUser_UserId" });
             DropIndex("dbo.UserEventAttendance", new[] { "Event_EventId" });
             DropIndex("dbo.UserEventAttendance", new[] { "User_UserId" });
+            DropIndex("dbo.Event", new[] { "OfGroup_GroupId" });
+            DropIndex("dbo.Event", new[] { "OwnerUser_UserId" });
+            DropTable("dbo.Group");
             DropTable("dbo.Comments");
+            DropTable("dbo.User");
             DropTable("dbo.UserEventAttendance");
-            CreateIndex("dbo.EventUsers", "User_UserId");
-            CreateIndex("dbo.EventUsers", "Event_EventId");
-            CreateIndex("dbo.Invitation", "Event_EventId");
-            CreateIndex("dbo.Invitation", "User_UserId");
-            AddForeignKey("dbo.Invitation", "Event_EventId", "dbo.Event", "EventId");
-            AddForeignKey("dbo.EventUsers", "User_UserId", "dbo.User", "UserId", cascadeDelete: true);
-            AddForeignKey("dbo.EventUsers", "Event_EventId", "dbo.Event", "EventId", cascadeDelete: true);
-            AddForeignKey("dbo.Invitation", "User_UserId", "dbo.User", "UserId");
+            DropTable("dbo.Event");
         }
     }
 }

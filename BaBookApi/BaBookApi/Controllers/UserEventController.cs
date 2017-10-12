@@ -88,9 +88,39 @@ namespace BaBookApi.Controllers
             }
 
             return Ok();
-        } 
+        }
 
-       
+        [HttpPost]
+        [Route("api/userevent/{eventId}/{userId}/{commentText}")]
+        public IHttpActionResult AddComment(int eventId, int userId, string commentText)
+        {
+            try
+            {
+                _repository.AddComment(eventId, userId, commentText);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("api/userevent/{eventId}/comments")]
+        public IHttpActionResult GetEventComments(int eventId)
+        {
+            var commentsVM = new List<CommentViewModel>();
+            try
+            {
+                var comments = _repository.GetEventComments(eventId);
+                comments.ForEach(x => commentsVM.Add(DomainToViewModelMapping.MapCommentViewModel(x)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(commentsVM);
+        }
 
     }
 }

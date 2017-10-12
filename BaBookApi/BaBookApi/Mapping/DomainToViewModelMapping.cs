@@ -42,5 +42,20 @@ namespace BaBookApi.Mapping
                 Name = model.Name
             };
         }
+
+        public static CommentViewModel MapCommentViewModel(Comment model)
+        {
+            return new CommentViewModel()
+            {
+                OwnerUser = new UserViewModel()
+                {
+                    UserId = model.OwnerUser.UserId,
+                    Name = model.OwnerUser.Name
+                },
+                CommentText = model.CommentText,
+                CommentTime = model.CommentTime,
+                CommentId = model.CommentId
+            };
+        }
     }
 }
