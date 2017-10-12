@@ -20,10 +20,11 @@ namespace BaBookApi.Mapping
                 Description = model.Description
             };
 
-            model.Attendances
+            model.Attendances?
                 .ForEach(x => eventVm.Attendances.Add(x));
-            model.Comments
-                .ForEach(x => eventVm.Comments.Add(x));
+           
+            model.Comments?
+                    .ForEach(x => eventVm.Comments.Add(x));
 
             return eventVm;
         }
