@@ -50,7 +50,7 @@ namespace BaBookApi.Controllers
 
             try
             {
-                _repository.Add(newEvent, model.OwnerId, model.GroupId);
+                _repository.Add(newEvent, model.ownerId, model.groupId);
             }
             catch (Exception ex)
             {

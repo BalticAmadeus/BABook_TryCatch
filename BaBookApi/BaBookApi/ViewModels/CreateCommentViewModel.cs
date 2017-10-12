@@ -7,7 +7,7 @@ namespace BaBookApi.ViewModels
 {
     public class CreateCommentViewModel
     {
-        public int UserId { get; set; }
-        public string Text { get; set; }
+        public int userId { get; set; }
+        public string text { get; set; }
     }
 }

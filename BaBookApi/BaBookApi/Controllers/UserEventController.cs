@@ -97,7 +97,7 @@ namespace BaBookApi.Controllers
         {
             try
             {
-                _repository.AddComment(eventId, model.UserId, model.Text);
+                _repository.AddComment(eventId, model.userId, model.text);
             }
             catch (Exception ex)
             {
