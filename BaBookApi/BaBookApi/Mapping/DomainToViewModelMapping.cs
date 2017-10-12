@@ -28,9 +28,21 @@ namespace BaBookApi.Mapping
             return eventVm;
         }
 
+        public static CommentViewModel MapCommentViewModel(Comment model)
+        {
+            var commentVm = new CommentViewModel
+            {
+                CommentId = model.CommentId,
+                CommentText = model.CommentText,
+                CommentTime = model.CommentTime,
+            };
+
+            return commentVm;
+        }
+
         public static UserViewModel MapUserViewModel(User model)
         {
-            return new UserViewModel()
+            return new UserViewModel
             {
                 UserId = model.UserId,
                 Name = model.Name
