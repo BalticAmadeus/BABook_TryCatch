@@ -11,16 +11,15 @@ namespace DataAccess.Repositories
     {
         public void Add(Event model, int ownerId, int groupId)
         {
-            model.OfGroup = _context.Groups.FirstOrDefault(x => x.GroupId == groupId);
-            model.OwnerUser = _context.Users.FirstOrDefault(x => x.UserId == ownerId);
-
+            model.OfGroup = _context.Groups.SingleOrDefault(x => x.GroupId == groupId);
+            model.OwnerUser = _context.Users.SingleOrDefault(x => x.UserId == ownerId);
             _context.Events.Add(model);
             _context.SaveChanges();
         }
 
         public void Update(Event model)
         {
-            var eventToUpdate = FirstOrDefault(x => x.EventId == model.EventId);
+            var eventToUpdate = SingleOrDefault(x => x.EventId == model.EventId);
 
             eventToUpdate.Title = model.Title;
             eventToUpdate.DateOfOccurance = model.DateOfOccurance;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using BaBookApi.Mapping;
 using BaBookApi.ViewModels;
@@ -23,7 +24,14 @@ namespace BaBookApi.Controllers
             var toReturn = new List<EventViewModel>();
             var models = _repository.GetAll();
 
-            models.ForEach(x => toReturn.Add(DomainToViewModelMapping.MapEventViewModel(x)));
+            try
+            {
+                models.ForEach(x => toReturn.Add(DomainToViewModelMapping.MapEventViewModel(x)));
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+            }
 
             return Ok(toReturn);
         }
@@ -39,7 +47,16 @@ namespace BaBookApi.Controllers
         public IHttpActionResult CreateEvent(CreateEventViewModel model)
         {
             var newEvent = ViewModelToDomainMapping.MapEvent(model);
-            _repository.Add(newEvent, model.OwnerId, model.GroupId);
+
+            try
+            {
+                _repository.Add(newEvent, model.OwnerId, model.GroupId);
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+            }
+
             return Ok();
         }
 
@@ -47,7 +64,15 @@ namespace BaBookApi.Controllers
         [Route("api/events")]
         public IHttpActionResult UpdateEvent(CreateEventViewModel model)
         {
-            _repository.Update(ViewModelToDomainMapping.MapEvent(model));
+            try
+            {
+                _repository.Update(ViewModelToDomainMapping.MapEvent(model));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             return Ok();
         }
 
@@ -55,7 +80,7 @@ namespace BaBookApi.Controllers
         [Route("api/events/{id}")]
         public IHttpActionResult UpdateEvent(int id)
         {
-            _repository.Remove(_repository.FirstOrDefault(x => x.EventId == id));
+            _repository.Remove(_repository.SingleOrDefault(x => x.EventId == id));
             return Ok();
         }
     }

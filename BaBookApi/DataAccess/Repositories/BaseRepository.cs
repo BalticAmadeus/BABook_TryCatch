@@ -32,9 +32,9 @@ namespace DataAccess.Repositories
             return _context.Set<T>().Where(predicate);
         }
 
-        public T FirstOrDefault(Expression<Func<T, bool>> predicate)
+        public T SingleOrDefault(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().FirstOrDefault(predicate);
+            return _context.Set<T>().SingleOrDefault(predicate);
         }
 
         public void Add(T model)

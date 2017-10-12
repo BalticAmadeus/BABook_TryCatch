@@ -14,7 +14,7 @@ namespace BaBookApi.Controllers
 {
     public class UserEventController : ApiController
     {
-        private UserEventRepository _repository;
+        private readonly UserEventRepository _repository;
 
         public UserEventController()
         {
