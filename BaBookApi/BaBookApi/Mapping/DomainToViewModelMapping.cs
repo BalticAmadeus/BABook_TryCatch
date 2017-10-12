@@ -11,7 +11,7 @@ namespace BaBookApi.Mapping
     {
         public static EventViewModel MapEventViewModel(Event model)
         {
-            return new EventViewModel()
+            var eventVm = new EventViewModel
             {
                 EventId = model.EventId,
                 Title = model.Title,
@@ -19,19 +19,13 @@ namespace BaBookApi.Mapping
                 DateOfOccurance = model.DateOfOccurance,
                 Description = model.Description
             };
-        }
-        public static CreateEventViewModel MapNewEventViewModel(Event model)
-        {
-            return new CreateEventViewModel()
-            {
-                EventId = model.EventId,
-                Title = model.Title,
-                Location = model.Location,
-                DateOfOccurance = model.DateOfOccurance,
-                Description = model.Description,
-                GroupId = model.OfGroup.GroupId,
-                OwnerId = model.OwnerUser.UserId
-            };
+
+            model.Attendances
+                .ForEach(x => eventVm.Attendances.Add(x));
+            model.Comments
+                .ForEach(x => eventVm.Comments.Add(x));
+
+            return eventVm;
         }
 
         public static UserViewModel MapUserViewModel(User model)

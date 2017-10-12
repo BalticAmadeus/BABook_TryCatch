@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Domain.Models;
 
 namespace BaBookApi.ViewModels
 {
@@ -12,5 +13,8 @@ namespace BaBookApi.ViewModels
         public DateTime DateOfOccurance { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
+
+        public List<UserEventAttendance> Attendances { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

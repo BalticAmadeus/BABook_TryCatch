@@ -13,12 +13,13 @@ namespace DataAccess.Repositories
         {
             model.OfGroup = _context.Groups.SingleOrDefault(x => x.GroupId == groupId);
             model.OwnerUser = _context.Users.SingleOrDefault(x => x.UserId == ownerId);
+
             _context.Events.Add(model);
             _context.SaveChanges();
         }
 
         public void Update(Event model)
-        {
+        {   
             var eventToUpdate = SingleOrDefault(x => x.EventId == model.EventId);
 
             eventToUpdate.Title = model.Title;

@@ -3,38 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using BaBookApi.ViewModels;
+using DataAccess.Repositories;
 using Domain.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace BaBookApi.Mapping
 {
     public static class ViewModelToDomainMapping
     {
-        public static Event MapEvent(EventViewModel model)
-        {
-            return new Event()
-            {
-                EventId = model.EventId,
-                Attendances= new List<UserEventAttendance>(),
-                OfGroup = new Group(),
-                OwnerUser = new User(),
-                DateOfOccurance = model.DateOfOccurance,
-                Location = model.Location,
-                Title = model.Title,
-            };
-        }
-
         public static Event MapEvent(CreateEventViewModel model)
         {
-            return new Event()
+            var currentEvent = new Event
             {
                 EventId = model.EventId,
-                Attendances = new List<UserEventAttendance>(),
-                OfGroup = new Group(),
-                OwnerUser = new User(),
                 DateOfOccurance = model.DateOfOccurance,
                 Location = model.Location,
                 Title = model.Title,
+                Description = model.Description
             };
+
+            currentEvent.Attendances = new List<UserEventAttendance>();
+            currentEvent.Comments = new List<Comment>();
+
+            currentEvent.OfGroup = new Group();
+            currentEvent.OwnerUser = new User();
+
+            return currentEvent;
         }
     }
 }
