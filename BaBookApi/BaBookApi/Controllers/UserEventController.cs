@@ -90,9 +90,10 @@ namespace BaBookApi.Controllers
             return Ok();
         }
 
+        //TODO: MAKE IT WORK WITH COMMENTVIEWMODEL
         [HttpPost]
-        [Route("api/userevent/{eventId}/{userId}/{commentText}")]
-        public IHttpActionResult AddComment(int eventId, int userId, string commentText)
+        [Route("api/comments/{eventId}")]
+        public IHttpActionResult AddComment(int eventId, CreateCommentViewModel model)
         {
             try
             {
@@ -106,7 +107,7 @@ namespace BaBookApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/userevent/{eventId}/comments")]
+        [Route("api/comments/{eventId}")]
         public IHttpActionResult GetEventComments(int eventId)
         {
             var commentsVM = new List<CommentViewModel>();
