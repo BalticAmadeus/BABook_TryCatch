@@ -32,7 +32,7 @@ namespace BaBookApi.Mapping
         {
             var commentVm = new CommentViewModel
             {
-                CommentId = model.CommentId,
+                commentId = model.CommentId,
                 CommentText = model.CommentText,
                 CommentTime = model.CommentTime,
             };

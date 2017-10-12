@@ -8,7 +8,7 @@ namespace BaBookApi.ViewModels
 {
     public class CommentViewModel
     {
-        public int CommentId { get; set; }
+        public int commentId { get; set; }
         public string CommentText { get; set; }
         public DateTime CommentTime { get; set; }
 
