@@ -22,9 +22,9 @@ namespace BaBookApi.Controllers
         [Route("api/events")]
         public IHttpActionResult GetEvents()
         {
-#if DEBUG
+
             var userId = 1;
-#endif
+
             var toReturn = new List<EventListItemViewModel>();
             var events = _repository.GetLoadedList(userId);
 

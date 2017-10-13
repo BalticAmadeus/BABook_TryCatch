@@ -113,9 +113,9 @@ namespace BaBookApi.Controllers
         {
 
             var userId = model.UserId;
-#if DEBUG
+
             userId = 2;
-#endif
+
             try
             {
                 var comment = ViewModelToDomainMapping.CommentViewModelToModel(model);
