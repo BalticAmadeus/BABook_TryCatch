@@ -42,7 +42,7 @@ namespace BaBookApi.Controllers
         [Route("api/events/{id}")]
         public IHttpActionResult GetEventById(int id)
         {
-            return Ok(DomainToViewModelMapping.MapEventViewModel(_repository.Get(id)));
+            return Ok(DomainToViewModelMapping.MapEventListItemViewModel(_repository.Get(id)));
         }
 
         [HttpPost]
