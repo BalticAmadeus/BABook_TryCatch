@@ -21,12 +21,15 @@ namespace BaBookApi.Controllers
         [Route("api/events")]
         public IHttpActionResult GetEvents()
         {
-            var toReturn = new List<EventViewModel>();
-            var models = _repository.GetAll();
+#if DEBUG
+            var userId = 1;
+#endif
+            var toReturn = new List<EventListItemViewModel>();
+            var events = _repository.GetLoadedList(userId);
 
             try
             {
-                models.ForEach(x => toReturn.Add(DomainToViewModelMapping.MapEventViewModel(x)));
+                events.ForEach(x => toReturn.Add(DomainToViewModelMapping.MapEventListItemViewModel(x)));
             }
             catch (Exception ex)
             {
