@@ -254,6 +254,8 @@
     <Compile Include="ViewModels\CreateEventViewModel.cs" />
     <Compile Include="ViewModels\EventListItemViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
+    <Compile Include="ViewModels\GetCommentsViewModel.cs" />
+    <Compile Include="ViewModels\NewEventViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
