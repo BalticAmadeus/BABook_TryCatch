@@ -252,6 +252,7 @@
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\CreateCommentViewModel.cs" />
     <Compile Include="ViewModels\CreateEventViewModel.cs" />
+    <Compile Include="ViewModels\EventListItemViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\GetCommentsViewModel.cs" />
     <Compile Include="ViewModels\NewEventViewModel.cs" />
