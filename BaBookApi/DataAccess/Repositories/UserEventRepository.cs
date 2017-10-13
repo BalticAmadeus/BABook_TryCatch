@@ -40,13 +40,15 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public List<User> GetEventParticipants(int eventId)
+        public List<UserEventAttendance> GetEventParticipants(int eventId)
         {
-            var Event = _context.Events.Include(x => x.Attendances).SingleOrDefault(x => x.EventId == eventId);
+            var Event = _context.Events
+                .Include(x => x.Attendances.Select(y => y.User))
+                .SingleOrDefault(x => x.EventId == eventId);
             
  	        if(Event == null) throw new Exception("There is no such Event!");
 
-            return Event.Attendances.Select(x => x.User).ToList();           
+            return Event.Attendances.ToList();           
         }
 
 
@@ -80,7 +82,7 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public void AddComment(int eventId, int userId, string commentText)
+        public void AddComment(Comment comment, int eventId, int userId)
         {
             var user = _context.Users.Find(userId);
             _context.Entry(user).Collection(x => x.Comments).Load();
@@ -89,14 +91,9 @@ namespace DataAccess.Repositories
             if (user == null) throw new Exception("There is no such User!");
             if (commentedEvent == null) throw new Exception("There is no such Event!");
 
-            var comment = new Comment()
-            {
-                OwnerUser = user,
-                OfEvent = commentedEvent,
-                CommentText = commentText,
-                CommentTime = DateTime.Now
-            };
-            
+            comment.OwnerUser = user;
+            comment.OfEvent = commentedEvent;
+
             user.Comments.Add(comment);
             _context.SaveChanges();
         }
