@@ -136,7 +136,7 @@ namespace BaBookApi.Controllers
             try
             {
                 var comments = _repository.GetEventComments(eventId);
-                comments.ForEach(x => commentsVM.Add(DomainToViewModelMapping.MapCommentViewModel(x)));
+                comments.ForEach(x => commentsVM.Add(DomainToViewModelMapping.MapGetCommentsViewModel(x)));
             }
             catch (Exception ex)
             {
