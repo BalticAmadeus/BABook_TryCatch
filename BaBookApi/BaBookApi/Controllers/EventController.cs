@@ -49,7 +49,7 @@ namespace BaBookApi.Controllers
         [Route("api/events")]
         public IHttpActionResult CreateEvent(NewEventViewModel model)
         {
-            var newEvent = ViewModelToDomainMapping.MapEvent(model);
+            var newEvent = ViewModelToDomainMapping.NewEventViewModelToModel(model);
 
             try
             {
@@ -69,7 +69,7 @@ namespace BaBookApi.Controllers
         {
             try
             {
-                _repository.Update(ViewModelToDomainMapping.MapEvent(model));
+                _repository.Update(ViewModelToDomainMapping.NewEventViewModelToModel(model));
             }
             catch (Exception ex)
             {

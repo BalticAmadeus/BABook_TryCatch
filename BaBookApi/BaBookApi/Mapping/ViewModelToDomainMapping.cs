@@ -35,5 +35,23 @@ namespace BaBookApi.Mapping
 
             return attendance;
         }
+
+        public static Event NewEventViewModelToModel(NewEventViewModel model)
+        {
+            var currentEvent = new Event
+            {
+                Title = model.Title,
+                DateOfOccurance = model.DateOfOccurance,
+                Location = model.Location,
+                Description = model.Description,
+                OfGroup = new Group(),
+                OwnerUser = new User(),
+                Comments = new List<Comment>(),
+                Attendances = new List<UserEventAttendance>()
+            };
+
+            return currentEvent;
+        }
+
     }
 }

@@ -53,5 +53,14 @@ namespace BaBookApi.Mapping
                 AttendanceStatus = model.Response
             };
         }
+
+        public static GetCommentsViewModel MapGetCommentsViewModel(Comment model)
+        {
+            return new GetCommentsViewModel()
+            {
+                OwnerUser = model.OwnerUser.Name,
+                Text = model.CommentText
+            };
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace BaBookApi.ViewModels
     public class GetCommentsViewModel
     {
         [JsonProperty("name")]
-        public int OwnerUser { get; set; }
+        public string OwnerUser { get; set; }
         [JsonProperty("comment")]
         public string Text { get; set; }
     }
