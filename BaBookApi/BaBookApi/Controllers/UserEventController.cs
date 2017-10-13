@@ -91,7 +91,7 @@ namespace BaBookApi.Controllers
         }
 
         [HttpPut]
-        [Route("api/userevent/{eventId}/{userId}/{response}")]
+        [Route("api/userevent")]
         public IHttpActionResult ChangeResponse(AttendanceViewModel model)
         {
             try

@@ -24,7 +24,7 @@ namespace DataAccess.Repositories
             return _context.Events
                 .Include(x => x.OfGroup)
                 .Include(x => x.OwnerUser)
-                .Include(x => x.Attendances.Select(y => y.User.UserId == userId))
+                .Include(x => x.Attendances.Select(y => y.User))
                 .ToList();
         }
 

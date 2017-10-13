@@ -12,7 +12,7 @@ namespace BaBookApi.ViewModels
         [JsonProperty("userId")]
         public int UserId { get; set; }
 
-        [JsonProperty("commentText")]
+        [JsonProperty("comment")]
         public string CommentText { get; set; }
     }
 }

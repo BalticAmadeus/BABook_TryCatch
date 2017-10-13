@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using BaBookApi.Mapping;
 using BaBookApi.ViewModels;
@@ -29,7 +30,16 @@ namespace BaBookApi.Controllers
 
             try
             {
-                events.ForEach(x => toReturn.Add(DomainToViewModelMapping.MapEventListItemViewModel(x)));
+                foreach (var e in events)
+                {
+                    var eVm = DomainToViewModelMapping.MapEventListItemViewModel(e);
+                    var attendance = e.Attendances.SingleOrDefault(x => x.User.UserId == userId);
+                    if (attendance != null) eVm.AttendanceStatus = attendance.Response;
+
+
+                    toReturn.Add(eVm);
+                }
+
             }
             catch (Exception ex)
             {
@@ -81,7 +91,7 @@ namespace BaBookApi.Controllers
 
         [HttpDelete]
         [Route("api/events/{id}")]
-        public IHttpActionResult UpdateEvent(int id)
+        public IHttpActionResult DeleteEvent(int id)
         {
             _repository.Remove(_repository.SingleOrDefault(x => x.EventId == id));
             return Ok();
