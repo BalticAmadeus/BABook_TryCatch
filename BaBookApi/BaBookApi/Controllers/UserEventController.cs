@@ -73,13 +73,30 @@ namespace BaBookApi.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("api/userevent/{eventId}/{userId}/{response}")]
-        public IHttpActionResult ChangeResponse(int eventId, int userId, Enums.EventResponse response)
+        public IHttpActionResult AddResponse(AttendanceViewModel model)
         {
             try
             {
-                _repository.ChangeResponse(eventId, userId, response);
+                var attendance = ViewModelToDomainMapping.AttendanceViewModelToModel(model);
+                _repository.AddResponse(attendance, model.EventId, model.UserId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("api/userevent/{eventId}/{userId}/{response}")]
+        public IHttpActionResult ChangeResponse(AttendanceViewModel model)
+        {
+            try
+            {
+                _repository.ChangeResponse(model.EventId, model.UserId, model.Status);
                 
             }
             catch (Exception ex)
@@ -90,15 +107,19 @@ namespace BaBookApi.Controllers
             return Ok();
         }
 
-        //TODO: MAKE IT WORK WITH COMMENTVIEWMODEL
         [HttpPost]
         [Route("api/comments/{eventId}")]
         public IHttpActionResult AddComment(int eventId, NewCommentViewModel model)
         {
+
+            var userId = model.UserId;
+#if DEBUG
+            userId = 2;
+#endif
             try
             {
                 var comment = ViewModelToDomainMapping.CommentViewModelToModel(model);
-                _repository.AddComment(comment, eventId, model.UserId);
+                _repository.AddComment(comment, eventId, userId);
             }
             catch (Exception ex)
             {

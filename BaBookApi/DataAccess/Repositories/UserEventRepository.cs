@@ -70,6 +70,21 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
+        public void AddResponse(UserEventAttendance attendance, int eventId, int userId)
+        {
+            var currentEvent = _context.Events.Find(eventId);
+            var user = _context.Users.Find(userId);
+
+            if(currentEvent == null) throw new Exception("There is no such event!");
+            if(user == null) throw new Exception("There is no such user!");
+
+            attendance.Event = currentEvent;
+            attendance.User = user;
+
+            _context.UserEventAttendances.Add(attendance);
+            _context.SaveChanges();
+        }
+
         public void ChangeResponse(int eventId,int userId, Enums.EventResponse response)
         {
             var attendance =
