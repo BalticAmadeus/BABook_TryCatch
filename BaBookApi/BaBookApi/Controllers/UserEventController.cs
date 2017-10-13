@@ -93,11 +93,12 @@ namespace BaBookApi.Controllers
         //TODO: MAKE IT WORK WITH COMMENTVIEWMODEL
         [HttpPost]
         [Route("api/comments/{eventId}")]
-        public IHttpActionResult AddComment(int eventId, CreateCommentViewModel model)
+        public IHttpActionResult AddComment(int eventId, NewCommentViewModel model)
         {
             try
             {
-                _repository.AddComment(eventId, model.UserId, model.Text);
+                var comment = ViewModelToDomainMapping.CommentViewModelToModel(model);
+                _repository.AddComment(comment, eventId, model.UserId);
             }
             catch (Exception ex)
             {

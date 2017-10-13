@@ -11,7 +11,7 @@ namespace BaBookApi.Mapping
 {
     public static class ViewModelToDomainMapping
     {
-        public static Comment CommentViewModelToModel(CommentViewModel commentViewModel)
+        public static Comment CommentViewModelToModel(NewCommentViewModel commentViewModel)
         {
             var comment = new Comment
             {
