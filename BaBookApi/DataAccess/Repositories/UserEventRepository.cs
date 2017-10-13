@@ -40,13 +40,15 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public List<User> GetEventParticipants(int eventId)
+        public List<UserEventAttendance> GetEventParticipants(int eventId)
         {
-            var Event = _context.Events.Include(x => x.Attendances).SingleOrDefault(x => x.EventId == eventId);
+            var Event = _context.Events
+                .Include(x => x.Attendances.Select(y => y.User))
+                .SingleOrDefault(x => x.EventId == eventId);
             
  	        if(Event == null) throw new Exception("There is no such Event!");
 
-            return Event.Attendances.Select(x => x.User).ToList();           
+            return Event.Attendances.ToList();           
         }
 
 

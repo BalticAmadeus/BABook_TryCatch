@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,15 @@ namespace DataAccess.Repositories
 
             _context.Events.Add(model);
             _context.SaveChanges();
+        }
+
+        public List<Event> GetLoadedList(int userId)
+        {
+            return _context.Events
+                .Include(x => x.OfGroup)
+                .Include(x => x.OwnerUser)
+                .Include(x => x.Attendances.Select(y => y.User.UserId == userId))
+                .ToList();
         }
 
         public void Update(Event model)

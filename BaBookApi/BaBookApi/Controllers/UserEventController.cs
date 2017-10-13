@@ -41,13 +41,13 @@ namespace BaBookApi.Controllers
         [HttpGet]
         public IHttpActionResult GetEventParticipants(int eventId)
         {
-            var eventUsersVM = new List<UserViewModel>();
+            var eventUsersVM = new List<ParticipantViewModel>();
 
             try
             {
                 var eventUsers = _repository.GetEventParticipants(eventId);
 
-                eventUsers.ForEach(x => eventUsersVM.Add(DomainToViewModelMapping.MapUserViewModel(x)));
+                eventUsers.ForEach(x => eventUsersVM.Add(DomainToViewModelMapping.MapParticipantViewModel(x)));
             }
             catch (Exception ex)
             {
