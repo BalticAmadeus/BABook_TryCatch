@@ -13,6 +13,8 @@ namespace BaBookApi.Controllers
     {
         private readonly EventRepository _repository;
 
+        private int userId = 1;
+
         public EventController()
         {
             _repository = new EventRepository();
@@ -23,7 +25,7 @@ namespace BaBookApi.Controllers
         public IHttpActionResult GetEvents()
         {
 
-            var userId = 1;
+            
 
             var toReturn = new List<EventListItemViewModel>();
             var events = _repository.GetLoadedList(userId);
@@ -32,11 +34,7 @@ namespace BaBookApi.Controllers
             {
                 foreach (var e in events)
                 {
-                    var eVm = DomainToViewModelMapping.MapEventListItemViewModel(e);
-                    var attendance = e.Attendances.SingleOrDefault(x => x.User.UserId == userId);
-                    if (attendance != null) eVm.AttendanceStatus = attendance.Response;
-
-
+                    var eVm = DomainToViewModelMapping.MapEventListItemViewModel(e, userId);
                     toReturn.Add(eVm);
                 }
 
@@ -52,7 +50,7 @@ namespace BaBookApi.Controllers
         [Route("api/events/{id}")]
         public IHttpActionResult GetEventById(int id)
         {
-            return Ok(DomainToViewModelMapping.MapEventListItemViewModel(_repository.Get(id)));
+            return Ok(DomainToViewModelMapping.MapEventListItemViewModel(_repository.Get(id), userId));
         }
 
         [HttpPost]
