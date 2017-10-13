@@ -110,7 +110,7 @@ namespace BaBookApi.Controllers
         [Route("api/comments/{eventId}")]
         public IHttpActionResult GetEventComments(int eventId)
         {
-            var commentsVM = new List<CommentViewModel>();
+            var commentsVM = new List<GetCommentsViewModel>();
             try
             {
                 var comments = _repository.GetEventComments(eventId);

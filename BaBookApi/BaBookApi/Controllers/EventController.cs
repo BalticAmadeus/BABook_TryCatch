@@ -44,7 +44,7 @@ namespace BaBookApi.Controllers
 
         [HttpPost]
         [Route("api/events")]
-        public IHttpActionResult CreateEvent(CreateEventViewModel model)
+        public IHttpActionResult CreateEvent(NewEventViewModel model)
         {
             var newEvent = ViewModelToDomainMapping.MapEvent(model);
 
@@ -62,7 +62,7 @@ namespace BaBookApi.Controllers
 
         [HttpPut]
         [Route("api/events")]
-        public IHttpActionResult UpdateEvent(CreateEventViewModel model)
+        public IHttpActionResult UpdateEvent(NewEventViewModel model)
         {
             try
             {
