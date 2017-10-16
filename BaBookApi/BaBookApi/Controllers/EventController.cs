@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using BaBookApi.Mapping;
 using BaBookApi.ViewModels;
 using DataAccess.Repositories;
@@ -9,6 +10,7 @@ using WebGrease.Css.Extensions;
 
 namespace BaBookApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventController : ApiController
     {
         private readonly EventRepository _repository;
@@ -24,11 +26,8 @@ namespace BaBookApi.Controllers
         [Route("api/events")]
         public IHttpActionResult GetEvents()
         {
-
-            
-
             var toReturn = new List<EventListItemViewModel>();
-            var events = _repository.GetLoadedList(userId);
+            var events = _repository.GetLoadedList();
 
             try
             {
@@ -47,10 +46,18 @@ namespace BaBookApi.Controllers
             return Ok(toReturn);
         }
 
-        [Route("api/events/{id}")]
-        public IHttpActionResult GetEventById(int id)
+        [Route("api/events/{eventId}")]
+        public IHttpActionResult GetEventById(int eventId)
         {
-            return Ok(DomainToViewModelMapping.MapEventListItemViewModel(_repository.Get(id), userId));
+            try
+            {
+                return Ok(DomainToViewModelMapping.MapEventListItemViewModel(_repository.GetLoadedEvent(eventId),
+                    userId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]

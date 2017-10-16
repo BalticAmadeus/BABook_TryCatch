@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using BaBookApi.Mapping;
 using BaBookApi.ViewModels;
 using Domain.Models;
@@ -12,6 +13,7 @@ using Domain.Utility;
 
 namespace BaBookApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserEventController : ApiController
     {
         private readonly UserEventRepository _repository;

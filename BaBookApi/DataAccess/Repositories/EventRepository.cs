@@ -19,13 +19,22 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public List<Event> GetLoadedList(int userId)
+        public List<Event> GetLoadedList()
         {
             return _context.Events
                 .Include(x => x.OfGroup)
                 .Include(x => x.OwnerUser)
                 .Include(x => x.Attendances.Select(y => y.User))
                 .ToList();
+        }
+
+        public Event GetLoadedEvent(int eventId)
+        {
+            return _context.Events
+                .Include(x => x.OfGroup)
+                .Include(x => x.OwnerUser)
+                .Include(x => x.Attendances.Select(y => y.User))
+                .SingleOrDefault(x => x.EventId == eventId);
         }
 
         public void Update(Event model)
