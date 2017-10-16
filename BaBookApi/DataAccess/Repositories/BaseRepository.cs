@@ -40,22 +40,19 @@ namespace DataAccess.Repositories
         public void Add(T model)
         {
             _context.Set<T>().Add(model);
+            _context.SaveChanges();
         }
 
         public void AddRange(IEnumerable<T> models)
         {
             _context.Set<T>().AddRange(models);
+            _context.SaveChanges();
         }
 
         public void Remove(T model)
         {
             _context.Set<T>().Remove(model);
-        }
-
-        public void Dispose()
-        {
             _context.SaveChanges();
-            _context?.Dispose();
         }
     }
 }
