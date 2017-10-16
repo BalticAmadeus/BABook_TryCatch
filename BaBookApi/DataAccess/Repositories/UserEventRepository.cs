@@ -72,16 +72,15 @@ namespace DataAccess.Repositories
 
         public void AddResponse(UserEventAttendance attendance, int eventId, int userId)
         {
-            var currentEvent = _context.Events.Find(eventId);
-            var user = _context.Users.Find(userId);
+            var attendanceToReturn =
+                _context.UserEventAttendances.SingleOrDefault(
+                    x => x.Event.EventId == eventId && x.User.UserId == userId);
 
-            if(currentEvent == null) throw new Exception("There is no such event!");
-            if(user == null) throw new Exception("There is no such user!");
+            if(attendanceToReturn == null) throw new Exception("There is no such event!");
 
-            attendance.Event = currentEvent;
-            attendance.User = user;
+            attendanceToReturn.Response = attendance.Response;
 
-            _context.UserEventAttendances.Add(attendance);
+            _context.UserEventAttendances.AddOrUpdate(attendanceToReturn);
             _context.SaveChanges();
         }
 
