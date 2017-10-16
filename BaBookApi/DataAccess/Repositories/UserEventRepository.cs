@@ -82,29 +82,27 @@ namespace DataAccess.Repositories
 
         public void AddResponse(UserEventAttendance attendance, int eventId, int userId)
         {
-            if(_context.UserEventAttendances.
-                Any(x => x.Event.EventId == eventId && x.User.UserId == userId)) { 
-                throw new Exception("You are already signed into this event!");
-            }
+            var currentAttendance =
+                _context.UserEventAttendances.
+                SingleOrDefault(x => x.Event.EventId == eventId && x.User.UserId == userId);
 
-            var user = _context.Users.Find(userId);
-            var currentEvent = _context.Events.Find(eventId);
-
-            if (user == null)
+            if (currentAttendance != null)
             {
-                throw new Exception("There is no such user!");
+                currentAttendance.Response = attendance.Response;
             }
+            else
+            { 
+                currentAttendance = new UserEventAttendance();
 
-            if (currentEvent == null)
-            {
-                throw new Exception("There is no such event!");
+                var user = _context.Users.Find(userId);
+                var currentEvent = _context.Events.Find(eventId);
+
+                currentAttendance.Event = currentEvent ?? throw new Exception("There is no such event!");
+                currentAttendance.User = user ?? throw new Exception("There is no such user!");
+
+                currentAttendance.Response = Enums.EventResponse.Going;
             }
-
-            attendance.Event = currentEvent;
-            attendance.User = user;
-            attendance.Response = Enums.EventResponse.Going;
-
-            _context.UserEventAttendances.Add(attendance);
+            _context.UserEventAttendances.AddOrUpdate(currentAttendance);
             _context.SaveChanges();
         }
 
