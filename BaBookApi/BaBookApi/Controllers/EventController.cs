@@ -79,12 +79,13 @@ namespace BaBookApi.Controllers
         }
 
         [HttpPut]
-        [Route("api/events")]
-        public IHttpActionResult UpdateEvent(NewEventViewModel model)
+        [Route("api/events/{eventId}")]
+        public IHttpActionResult UpdateEvent(NewEventViewModel model,int eventId)
         {
             try
             {
-                _repository.Update(ViewModelToDomainMapping.NewEventViewModelToModel(model));
+                var uVM = ViewModelToDomainMapping.NewEventViewModelToModel(model);
+                _repository.Update(uVM,eventId);
             }
             catch (Exception ex)
             {
