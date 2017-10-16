@@ -56,6 +56,14 @@ namespace DataAccess.Repositories
 
         public void SendInvitation(int eventId, int userId)
         {
+            if (_context.UserEventAttendances
+                .Include(x => x.User)
+                .Include(x => x.Event)
+                .Any(x => x.User.UserId == userId && x.Event.EventId == eventId))
+            {
+                throw new Exception("User is already invited or attending this event");
+            }
+
             var user = _context.Users.Find(userId);
             var activeEvent = _context.Events.Find(eventId);
 
