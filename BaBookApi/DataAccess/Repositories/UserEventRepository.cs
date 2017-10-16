@@ -1,9 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Context;
@@ -72,15 +74,29 @@ namespace DataAccess.Repositories
 
         public void AddResponse(UserEventAttendance attendance, int eventId, int userId)
         {
-            var attendanceToReturn =
-                _context.UserEventAttendances.SingleOrDefault(
-                    x => x.Event.EventId == eventId && x.User.UserId == userId);
+            if(_context.UserEventAttendances.
+                Any(x => x.Event.EventId == eventId && x.User.UserId == userId)) { 
+                throw new Exception("You are already signed into this event!");
+            }
 
-            if(attendanceToReturn == null) throw new Exception("There is no such event!");
+            var user = _context.Users.Find(userId);
+            var currentEvent = _context.Events.Find(eventId);
 
-            attendanceToReturn.Response = attendance.Response;
+            if (user == null)
+            {
+                throw new Exception("There is no such user!");
+            }
 
-            _context.UserEventAttendances.AddOrUpdate(attendanceToReturn);
+            if (currentEvent == null)
+            {
+                throw new Exception("There is no such event!");
+            }
+
+            attendance.Event = currentEvent;
+            attendance.User = user;
+            attendance.Response = Enums.EventResponse.Going;
+
+            _context.UserEventAttendances.Add(attendance);
             _context.SaveChanges();
         }
 
