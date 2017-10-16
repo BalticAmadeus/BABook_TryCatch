@@ -56,5 +56,14 @@ namespace BaBookApi.Mapping
                 Text = model.CommentText
             };
         }
+
+        public static GroupViewModel MapGroupViewModel(Group model)
+        {
+            return new GroupViewModel()
+            {
+                GroupId = model.GroupId,
+                GroupName = model.Name
+            };
+        }
     }
 }
