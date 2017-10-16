@@ -92,25 +92,17 @@ namespace DataAccess.Repositories
             }
             else
             { 
+                currentAttendance = new UserEventAttendance();
+
                 var user = _context.Users.Find(userId);
                 var currentEvent = _context.Events.Find(eventId);
 
-                if (user == null)
-                {
-                    throw new Exception("There is no such user!");
-                }
+                currentAttendance.Event = currentEvent ?? throw new Exception("There is no such event!");
+                currentAttendance.User = user ?? throw new Exception("There is no such user!");
 
-                if (currentEvent == null)
-                {
-                    throw new Exception("There is no such event!");
-                }
-
-                attendance.Event = currentEvent;
-                attendance.User = user;
-                attendance.Response = Enums.EventResponse.Going;
-
+                currentAttendance.Response = Enums.EventResponse.Going;
             }
-            _context.UserEventAttendances.AddOrUpdate(attendance);
+            _context.UserEventAttendances.AddOrUpdate(currentAttendance);
             _context.SaveChanges();
         }
 
