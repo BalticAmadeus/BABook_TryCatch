@@ -77,29 +77,12 @@ namespace BaBookApi.Controllers
 
         [HttpPost]
         [Route("api/userevent")]
-        public IHttpActionResult AddResponse(AttendanceViewModel model)
+        public IHttpActionResult ChangeResponse(AttendanceViewModel model)
         {
             try
             {
                 var attendance = ViewModelToDomainMapping.AttendanceViewModelToModel(model);
                 _repository.AddResponse(attendance, model.EventId, model.UserId);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return Ok();
-        }
-
-        [HttpPut]
-        [Route("api/userevent")]
-        public IHttpActionResult ChangeResponse(AttendanceViewModel model)
-        {
-            try
-            {
-                _repository.ChangeResponse(model.EventId, model.UserId, model.Status);
-                
             }
             catch (Exception ex)
             {
