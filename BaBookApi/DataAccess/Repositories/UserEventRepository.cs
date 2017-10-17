@@ -80,11 +80,11 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public void AddResponse(UserEventAttendance attendance, int eventId, int userId)
+        public void AddResponse(UserEventAttendance attendance, int eventId, string userId)
         {
             var currentAttendance =
                 _context.UserEventAttendances.
-                SingleOrDefault(x => x.Event.EventId == eventId && x.User.UserId == userId);
+                SingleOrDefault(x => x.Event.EventId == eventId && x.User.Id == userId);
 
             if (currentAttendance != null)
             {
