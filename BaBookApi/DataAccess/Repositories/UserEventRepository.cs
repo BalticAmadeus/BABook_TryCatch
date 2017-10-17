@@ -88,7 +88,9 @@ namespace DataAccess.Repositories
 
             if (currentAttendance != null)
             {
-                currentAttendance.Response = attendance.Response;
+                if (attendance.Response!=Enums.EventResponse.Unanswered) currentAttendance.Response = attendance.Response;
+                else if(currentAttendance.Response!=Enums.EventResponse.Unanswered) throw new Exception("This user has already decided go or not to");
+                else throw new Exception("This user has already been invited");
             }
             else
             { 
@@ -100,7 +102,7 @@ namespace DataAccess.Repositories
                 currentAttendance.Event = currentEvent ?? throw new Exception("There is no such event!");
                 currentAttendance.User = user ?? throw new Exception("There is no such user!");
 
-                currentAttendance.Response = Enums.EventResponse.Going;
+                currentAttendance.Response = attendance.Response;
             }
             _context.UserEventAttendances.AddOrUpdate(currentAttendance);
             _context.SaveChanges();
