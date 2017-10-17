@@ -17,11 +17,13 @@ namespace BaBookApi.Controllers
     {
         private readonly EventRepository _repository;
 
-        private string userId = HttpContext.Current.User.Identity.GetUserId();
+        //TODO: MAKE USERID WORK
+        private string userId;
 
         public EventController()
         {
             _repository = new EventRepository();
+            userId = HttpContext.Current.User.Identity.GetUserId();
         }
 
         [Authorize]

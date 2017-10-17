@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using BaBookApi.Models;
+using BaBookApi.OAuth;
 using DataAccess.Context;
 using Domain.Models;
 using Microsoft.AspNet.Identity;
@@ -15,49 +19,59 @@ namespace BaBookApi.Controllers
     public class UtilityController : ApiController
     {
         private readonly DataContext _context;
-        private ApplicationUserManager _userManager;
+        private AuthRepository _authRepository;
 
         public UtilityController()
         {
             _context = new DataContext();
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            _authRepository = new AuthRepository();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [Route("api/seed")]
-        public IHttpActionResult SeedDatabase()
+        public async Task<IHttpActionResult> SeedDatabase()
         {
             if (_context.Users.Any(x => x.UserName == "admin")) return BadRequest("Already seed'ed");
 
-            var user = new User
+            var user = new RegisterBindingModel
             {
-                UserName = "admin",
-                Email = "admin@admin.com"
+                Email = "admin",
+                Password = "adminas"
             };
-            const string password = "adminas";
 
-            UserManager.Create(user, password);
+            IdentityResult result = await _authRepository.RegisterUser(user);
 
-            var user2 = new User
+            var user2 = new RegisterBindingModel()
             {
-                UserName = "guest",
-                Email = "guest@guest.com"
+                Email = "guest",
+                Password = "guestas"
             };
-            const string password2 = "guestas";
 
-            UserManager.Create(user2, password2);
+            IdentityResult result2 = await _authRepository.RegisterUser(user2);
+
+            Group group = new Group()
+            {
+                Name = "ALUS"
+            };
+
+            _context.Groups.AddOrUpdate(group);
+            _context.SaveChanges();
+
+            Event newEvent = new Event()
+            {
+                Attendances = new List<UserEventAttendance>(),
+                DateOfOccurance = new DateTime(1997, 11, 24, 15, 25, 25),
+                Description = "TESTASSS",
+                Location = "Snekutis",
+                Title = "BeerPong",
+                OfGroup = group,
+                OwnerUser = _context.Users.SingleOrDefault(x => x.UserName == "admin")
+            };
+
+            _context.Events.AddOrUpdate(newEvent);
+
+            _context.SaveChanges();
 
             return Ok();
         }
