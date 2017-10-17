@@ -92,6 +92,14 @@ namespace BaBookApi.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("api/userevent/inviteable")]
+        public IHttpActionResult GetInviteables([FromBody] int eventId)
+        {
+            return Ok();
+        }
+
+
         [HttpPost]
         [Route("api/comments/{eventId}")]
         public IHttpActionResult AddComment(int eventId, NewCommentViewModel model)
