@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using DataAccess.Context;
 using Domain.Models;
 using Microsoft.AspNet.Identity;
@@ -46,40 +48,7 @@ namespace DataAccess.Migrations
             CreateTestUsers(context, out user1, out user2);
 
 
-
-
-
             context.SaveChanges();
-
-            //try
-            //{
-            //    context.SaveChanges();
-            //}
-            //catch (System.Data.Entity.Validation.DbEntityValidationException e)
-            //{
-            //    var outputLines = new List<string>();
-            //    foreach (var eve in e.EntityValidationErrors)
-            //    {
-            //        outputLines.Add(string.Format(
-            //            "{0}: Entity of type \"{1}\" in state \"{2}\" has the following validation errors:",
-            //            DateTime.Now, eve.Entry.Entity.GetType().Name, eve.Entry.State));
-            //        foreach (var ve in eve.ValidationErrors)
-            //        {
-            //            outputLines.Add(string.Format(
-            //                "- Property: \"{0}\", Error: \"{1}\"",
-            //                ve.PropertyName, ve.ErrorMessage));
-            //        }
-            //    }
-            //    //Write to file
-            //    System.IO.File.AppendAllLines(@"c:\temp\errors.txt", outputLines);
-            //    throw;
-
-            //    // Showing it on screen
-            //    throw new Exception(string.Join(",", outputLines.ToArray()));
-
-            //}
-
-
             base.Seed(context);
         }
 
@@ -87,13 +56,6 @@ namespace DataAccess.Migrations
         {
             var store = new UserStore<User>(context);
             var userManager = new UserManager<User>(store);
-
-     
-            var roleStore = new RoleStore<IdentityRole>(context);
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
-            var role = new IdentityRole { Name = "Admin" };
-            roleManager.Create(role);
-            
 
             user = new User
             {
@@ -103,7 +65,6 @@ namespace DataAccess.Migrations
             const string password = "admin";
 
             userManager.Create(user, password);
-            //userManager.AddToRole(user.Id, "Admin");
 
             user2 = new User
             {
@@ -113,8 +74,6 @@ namespace DataAccess.Migrations
             const string password2 = "guest";
 
             userManager.Create(user2, password2);
-            context.Users.Add(user);
-            context.Users.Add(user2);
         }
     }
 }

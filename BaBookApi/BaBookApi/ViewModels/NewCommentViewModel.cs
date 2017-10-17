@@ -10,7 +10,7 @@ namespace BaBookApi.ViewModels
     public class NewCommentViewModel
     {
         [JsonProperty("userId")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [JsonProperty("comment")]
         public string CommentText { get; set; }

@@ -118,7 +118,7 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public void AddComment(Comment comment, int eventId, int userId)
+        public void AddComment(Comment comment, int eventId, string userId)
         {
             var user = _context.Users.Find(userId);
             _context.Entry(user).Collection(x => x.Comments).Load();

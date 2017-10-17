@@ -104,15 +104,10 @@ namespace BaBookApi.Controllers
         [Route("api/comments/{eventId}")]
         public IHttpActionResult AddComment(int eventId, NewCommentViewModel model)
         {
-
-            var userId = model.UserId;
-
-            userId = 2;
-
             try
             {
                 var comment = ViewModelToDomainMapping.CommentViewModelToModel(model);
-                _repository.AddComment(comment, eventId, userId);
+                _repository.AddComment(comment, eventId, model.UserId);
             }
             catch (Exception ex)
             {
