@@ -20,7 +20,7 @@ namespace BaBookApi.Mapping
 
             return attendanceViewModel;
         }
-        public static EventListItemViewModel MapEventListItemViewModel(Event model, int userId)
+        public static EventListItemViewModel MapEventListItemViewModel(Event model, string userId)
         {
             var vm = new EventListItemViewModel()
             {
@@ -33,7 +33,7 @@ namespace BaBookApi.Mapping
                 Title = model.Title,
             };
 
-            var attendance = model.Attendances.SingleOrDefault(x => x.User.UserId == userId);
+            var attendance = model.Attendances.SingleOrDefault(x => x.User.Id == userId);
             if (attendance != null) vm.AttendanceStatus = attendance.Response;
 
             return vm;

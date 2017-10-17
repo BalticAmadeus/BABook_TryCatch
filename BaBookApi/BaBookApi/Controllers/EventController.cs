@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BaBookApi.Mapping;
 using BaBookApi.ViewModels;
 using DataAccess.Repositories;
+using Microsoft.AspNet.Identity;
 using WebGrease.Css.Extensions;
 
 namespace BaBookApi.Controllers
@@ -15,14 +17,14 @@ namespace BaBookApi.Controllers
     {
         private readonly EventRepository _repository;
 
-        private int userId = 1;
+        private string userId = HttpContext.Current.User.Identity.GetUserId();
 
         public EventController()
         {
             _repository = new EventRepository();
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [Route("api/events")]
         public IHttpActionResult GetEvents()
         {

@@ -35,6 +35,7 @@ namespace BaBookApi.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("api/seed")]
         public IHttpActionResult SeedDatabase()
         {
