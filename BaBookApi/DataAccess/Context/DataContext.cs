@@ -16,13 +16,17 @@ namespace DataAccess.Context
         public DbSet<Event> Events { get; set; }
         public DbSet<UserEventAttendance> UserEventAttendances { get; set; }
 
-        public DataContext() : base("DataContext")
+        public DataContext() : base("DataContext", throwIfV1Schema: false)
         {
             Database.SetInitializer<DataContext>(null);
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
         }
 
+        public static DataContext Create()
+        {
+            return new DataContext();
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

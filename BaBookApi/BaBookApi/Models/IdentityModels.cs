@@ -18,16 +18,16 @@ namespace BaBookApi.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class applicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public applicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
         
-        public static ApplicationDbContext Create()
+        public static applicationDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new applicationDbContext();
         }
     }
 }

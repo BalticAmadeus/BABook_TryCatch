@@ -13,7 +13,6 @@ namespace DataAccess.Configuration
         public UserConfiguration()
         {
             ToTable(nameof(User));
-            HasKey(x => x.UserId);
             HasMany(x => x.CreatedEvents);
             HasMany(x => x.AttendedEvents);
             HasMany(x => x.Comments);

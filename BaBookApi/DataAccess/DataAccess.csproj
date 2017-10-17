@@ -65,9 +65,9 @@
     <Compile Include="Configuration\UserConfiguration.cs" />
     <Compile Include="Configuration\UserEventAttendanceConfiguration.cs" />
     <Compile Include="Context\DataContext.cs" />
-    <Compile Include="Migrations\201710121207562_initial.cs" />
-    <Compile Include="Migrations\201710121207562_initial.Designer.cs">
-      <DependentUpon>201710121207562_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201710171116080_initial.cs" />
+    <Compile Include="Migrations\201710171116080_initial.Designer.cs">
+      <DependentUpon>201710171116080_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,8 +87,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710121207562_initial.resx">
-      <DependentUpon>201710121207562_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710171116080_initial.resx">
+      <DependentUpon>201710171116080_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -93,10 +93,10 @@ namespace BaBookApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/userevent/inviteable")]
+        [Route("api/userevent/invitable")]
         public IHttpActionResult GetInviteables([FromBody] int eventId)
         {
-            return Ok();
+            return Ok("hello");
         }
 
 
