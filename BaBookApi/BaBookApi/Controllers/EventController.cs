@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Routing;
 using BaBookApi.Mapping;
+using BaBookApi.OAuth;
 using BaBookApi.ViewModels;
 using DataAccess.Repositories;
 using Microsoft.AspNet.Identity;
@@ -17,13 +21,11 @@ namespace BaBookApi.Controllers
     {
         private readonly EventRepository _repository;
 
-        //TODO: MAKE USERID WORK
-        private string userId;
+        private string _userId;
 
         public EventController()
         {
             _repository = new EventRepository();
-            userId = HttpContext.Current.User.Identity.GetUserId();
         }
 
         [Authorize]
@@ -33,11 +35,15 @@ namespace BaBookApi.Controllers
             var toReturn = new List<EventListItemViewModel>();
             var events = _repository.GetLoadedList();
 
+            _userId = HttpContext.Current.User.Identity.GetUserId();
+
+
+
             try
             {
                 foreach (var e in events)
                 {
-                    var eVm = DomainToViewModelMapping.MapEventListItemViewModel(e, userId);
+                    var eVm = DomainToViewModelMapping.MapEventListItemViewModel(e, _userId);
                     toReturn.Add(eVm);
                 }
 
@@ -56,7 +62,7 @@ namespace BaBookApi.Controllers
             try
             {
                 return Ok(DomainToViewModelMapping.MapEventListItemViewModel(_repository.GetLoadedEvent(eventId),
-                    userId));
+                    _userId));
             }
             catch (Exception ex)
             {
