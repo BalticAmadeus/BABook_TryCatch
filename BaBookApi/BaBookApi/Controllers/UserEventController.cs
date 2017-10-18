@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BaBookApi.Mapping;
@@ -10,6 +11,7 @@ using BaBookApi.ViewModels;
 using Domain.Models;
 using DataAccess.Repositories;
 using Domain.Utility;
+using Microsoft.AspNet.Identity;
 
 namespace BaBookApi.Controllers
 {
@@ -92,14 +94,6 @@ namespace BaBookApi.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [Route("api/userevent/invitable")]
-        public IHttpActionResult GetInviteables([FromBody] int eventId)
-        {
-            return Ok("hello");
-        }
-
-
         [HttpPost]
         [Route("api/comments/{eventId}")]
         public IHttpActionResult AddComment(int eventId, NewCommentViewModel model)
@@ -107,7 +101,8 @@ namespace BaBookApi.Controllers
             try
             {
                 var comment = ViewModelToDomainMapping.CommentViewModelToModel(model);
-                _repository.AddComment(comment, eventId, model.UserId);
+                _repository.AddComment(comment, eventId,
+                    HttpContext.Current.User.Identity.GetUserId());
             }
             catch (Exception ex)
             {

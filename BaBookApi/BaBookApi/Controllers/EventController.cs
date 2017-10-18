@@ -37,8 +37,6 @@ namespace BaBookApi.Controllers
 
             _userId = HttpContext.Current.User.Identity.GetUserId();
 
-
-
             try
             {
                 foreach (var e in events)
