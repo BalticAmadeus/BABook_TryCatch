@@ -22,7 +22,7 @@ namespace BaBookApi.Mapping
         }
         public static EventListItemViewModel MapEventListItemViewModel(Event model, string userId)
         {
-            var vm = new EventListItemViewModel()
+            var vm = new EventListItemViewModel
             {
                 EventId = model.EventId,
                 GroupName = model.OfGroup.Name,
@@ -30,7 +30,7 @@ namespace BaBookApi.Mapping
                 Date = model.DateOfOccurance,
                 Location = model.Location,
                 Description = model.Description,
-                Title = model.Title,
+                Title = model.Title
             };
 
             var attendance = model.Attendances.SingleOrDefault(x => x.User.Id == userId);
@@ -41,7 +41,7 @@ namespace BaBookApi.Mapping
 
         public static ParticipantViewModel MapParticipantViewModel(UserEventAttendance model)
         {
-            return new ParticipantViewModel()
+            return new ParticipantViewModel
             {
                 Name = model.User.Name,
                 AttendanceStatus = model.Response
@@ -50,7 +50,7 @@ namespace BaBookApi.Mapping
 
         public static GetCommentsViewModel MapGetCommentsViewModel(Comment model)
         {
-            return new GetCommentsViewModel()
+            return new GetCommentsViewModel
             {
                 OwnerUser = model.OwnerUser.Name,
                 Text = model.CommentText
