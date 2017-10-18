@@ -24,7 +24,8 @@ namespace BaBookApi.OAuth
         {
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             IdentityUser user;
-            using (AuthRepository _repo = new AuthRepository())
+
+            using (var _repo = new AuthRepository())
             {
                 user = await _repo.FindUser(context.UserName, context.Password);
 
@@ -46,9 +47,9 @@ namespace BaBookApi.OAuth
 
     public class AuthRepository : IDisposable
     {
-        private DataContext _ctx;
+        private readonly DataContext _ctx;
 
-        private UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;
 
         public AuthRepository()
         {
@@ -58,7 +59,7 @@ namespace BaBookApi.OAuth
 
         public async Task<IdentityResult> RegisterUser(RegisterBindingModel userModel)
         {
-            User user = new User
+            var user = new User
             {
                 UserName = userModel.Email
             };
@@ -70,7 +71,7 @@ namespace BaBookApi.OAuth
 
         public async Task<User> FindUser(string userName, string password)
         {
-            User user = await _userManager.FindAsync(userName, password);
+            var user = await _userManager.FindAsync(userName, password);
 
             return user;
         }

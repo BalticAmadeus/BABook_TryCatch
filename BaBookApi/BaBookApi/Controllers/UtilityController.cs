@@ -19,7 +19,7 @@ namespace BaBookApi.Controllers
     public class UtilityController : ApiController
     {
         private readonly DataContext _context;
-        private AuthRepository _authRepository;
+        private readonly AuthRepository _authRepository;
 
         public UtilityController()
         {

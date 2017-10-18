@@ -14,7 +14,7 @@ namespace BaBookApi.Controllers
 {
     public class OAuthController : ApiController
     {
-        private AuthRepository _repo = null;
+        private readonly AuthRepository _repo = null;
 
         public OAuthController()
         {
@@ -24,7 +24,7 @@ namespace BaBookApi.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [HttpPost]
-        [Route("api/testRegister")]
+        [Route("api/Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel userModel)
         {
             if (!ModelState.IsValid)

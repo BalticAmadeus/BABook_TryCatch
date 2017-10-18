@@ -27,7 +27,6 @@ namespace BaBookApi.Controllers
             _repository = new EventRepository();
         }
 
-        [Authorize]
         [Route("api/events")]
         public IHttpActionResult GetEvents()
         {
