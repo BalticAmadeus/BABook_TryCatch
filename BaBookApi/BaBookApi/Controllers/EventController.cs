@@ -21,7 +21,6 @@ namespace BaBookApi.Controllers
     {
         private readonly EventRepository _repository;
 
-        private string _userId;
 
         public EventController()
         {
@@ -34,16 +33,12 @@ namespace BaBookApi.Controllers
         {
             var toReturn = new List<EventListItemViewModel>();
             var events = _repository.GetLoadedList();
-
-            _userId = HttpContext.Current.User.Identity.GetUserId();
-
-
-
+            
             try
             {
                 foreach (var e in events)
                 {
-                    var eVm = DomainToViewModelMapping.MapEventListItemViewModel(e, _userId);
+                    var eVm = DomainToViewModelMapping.MapEventListItemViewModel(e, HttpContext.Current.User.Identity.GetUserId());
                     toReturn.Add(eVm);
                 }
 
@@ -62,7 +57,7 @@ namespace BaBookApi.Controllers
             try
             {
                 return Ok(DomainToViewModelMapping.MapEventListItemViewModel(_repository.GetLoadedEvent(eventId),
-                    _userId));
+                    HttpContext.Current.User.Identity.GetUserId()));
             }
             catch (Exception ex)
             {
@@ -78,7 +73,7 @@ namespace BaBookApi.Controllers
 
             try
             {
-                _repository.Add(newEvent, model.OwnerId, model.GroupId);
+                _repository.Add(newEvent, HttpContext.Current.User.Identity.GetUserId(), model.GroupId);
             }
             catch (Exception ex)
             {

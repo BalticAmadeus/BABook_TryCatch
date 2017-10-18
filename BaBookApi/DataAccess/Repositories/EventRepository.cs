@@ -10,10 +10,10 @@ namespace DataAccess.Repositories
 {
     public class EventRepository : BaseRepository<Event>
     {
-        public void Add(Event model, int ownerId, int groupId)
+        public void Add(Event model, string ownerId, int groupId)
         {
             model.OfGroup = _context.Groups.SingleOrDefault(x => x.GroupId == groupId);
-            model.OwnerUser = _context.Users.SingleOrDefault(x => x.UserId == ownerId);
+            model.OwnerUser = _context.Users.SingleOrDefault(x => x.Id == ownerId);
 
             _context.Events.Add(model);
             _context.SaveChanges();

@@ -10,8 +10,6 @@ namespace BaBookApi.ViewModels
     {
         [JsonProperty("groupId")]
         public int GroupId { get; set; }
-        [JsonProperty("userId")]
-        public int OwnerId { get; set; }
         [JsonProperty("title")]
         public string Title { get; set; }
         [JsonProperty("date")]
