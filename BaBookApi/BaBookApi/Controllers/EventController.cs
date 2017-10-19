@@ -56,28 +56,24 @@ namespace BaBookApi.Controllers
         {
             try
             {
-                var currentEvent = _repository.GetLoadedEvent(eventId);
-
-                if(currentEvent.OwnerUser.Id == HttpContext.Current.User.Identity.GetUserId()) { 
-                    return Ok(DomainToViewModelMapping.MapEventListItemViewModel(currentEvent,
-                        HttpContext.Current.User.Identity.GetUserId()));
-                }
+                return Ok(DomainToViewModelMapping.MapEventListItemViewModel(
+                    _repository.GetLoadedEvent(eventId),
+                    HttpContext.Current.User.Identity.GetUserId()));
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            return BadRequest("Owner who tries to change event is not event Owner");
         }
 
         [HttpPost]
         [Route("api/events")]
         public IHttpActionResult CreateEvent(NewEventViewModel model)
         {
-            var newEvent = ViewModelToDomainMapping.NewEventViewModelToModel(model);
-
             try
             {
+                var newEvent = ViewModelToDomainMapping.NewEventViewModelToModel(model);
+
                 _repository.Add(newEvent, HttpContext.Current.User.Identity.GetUserId(), model.GroupId);
             }
             catch (Exception ex)
@@ -90,20 +86,23 @@ namespace BaBookApi.Controllers
 
         [HttpPut]
         [Route("api/events/{eventId}")]
-        public IHttpActionResult UpdateEvent(NewEventViewModel model,int eventId)
+        public IHttpActionResult UpdateEvent(int eventId)
         {
-
             try
             {
-                var uVM = ViewModelToDomainMapping.NewEventViewModelToModel(model);
-                _repository.Update(uVM,eventId);
+                var currentEvent = _repository.GetLoadedEvent(eventId);
+
+                if(currentEvent.OwnerUser.Id == HttpContext.Current.User.Identity.GetUserId())
+                {
+                    _repository.Update(currentEvent, eventId);
+                    return Ok();
+                }
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
-            return Ok();
+            return BadRequest("Owner who tries to change event is not event Owner");
         }
 
         [HttpDelete]
