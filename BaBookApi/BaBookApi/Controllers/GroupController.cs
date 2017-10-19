@@ -37,5 +37,41 @@ namespace BaBookApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("api/groups")]
+        public IHttpActionResult CreateGroup(NewGroupViewModel model)
+        {
+            try
+            {
+                //TODO: leisti si veiksama tik adminui
+                _repository.Add(ViewModelToDomainMapping.NewGroupViewModelToModel(model));
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
+
+        [HttpDelete]
+        [Route("api/groups/groupId")]
+        public IHttpActionResult DeleteGroup(int groupId)
+        {
+            try
+            {
+                //TODO: leisti si veiksma tik adminui
+                var currentEvent = _repository.SingleOrDefault(x => x.GroupId == groupId) ??
+                                   throw new Exception("Group with this ID doesn't exist!");
+                _repository.Remove(currentEvent);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

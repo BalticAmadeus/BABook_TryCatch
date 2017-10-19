@@ -53,6 +53,15 @@ namespace BaBookApi.Mapping
             return currentEvent;
         }
 
+        public static Group NewGroupViewModelToModel(NewGroupViewModel model)
+        {
+            var newGroup = new Group()
+            {
+                Name = model.GroupName
+            };
+            return newGroup;
+        }
+
         
 
     }

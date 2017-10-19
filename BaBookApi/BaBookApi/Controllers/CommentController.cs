@@ -59,7 +59,6 @@ namespace BaBookApi.Controllers
         [Route("api/comments/{commentId}")]
         public IHttpActionResult DeleteComment(int commentId)
         {
-
             _repository.Remove(_repository.SingleOrDefault(x => x.CommentId == commentId));
             return Ok();
         }

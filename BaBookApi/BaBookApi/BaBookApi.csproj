@@ -266,6 +266,7 @@
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\NewCommentViewModel.cs" />
     <Compile Include="ViewModels\NewEventViewModel.cs" />
+    <Compile Include="ViewModels\NewGroupViewModel.cs" />
     <Compile Include="ViewModels\ParticipantViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
