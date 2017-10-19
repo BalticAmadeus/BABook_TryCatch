@@ -63,7 +63,7 @@ namespace BaBookApi.Controllers
 
         [Route("api/userevent/invite/{eventId}/{userId}")]
         [HttpPost]
-        public IHttpActionResult SendInvitation(int eventId, int userId)
+        public IHttpActionResult SendInvitation(int eventId, string userId)
         {
             try
             {

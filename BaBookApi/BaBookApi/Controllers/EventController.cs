@@ -86,6 +86,7 @@ namespace BaBookApi.Controllers
         [Route("api/events/{eventId}")]
         public IHttpActionResult UpdateEvent(NewEventViewModel model,int eventId)
         {
+
             try
             {
                 var uVM = ViewModelToDomainMapping.NewEventViewModelToModel(model);

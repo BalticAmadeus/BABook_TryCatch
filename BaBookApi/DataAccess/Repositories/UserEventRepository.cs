@@ -54,7 +54,7 @@ namespace DataAccess.Repositories
         }
 
 
-        public void SendInvitation(int eventId, int userId)
+        public void SendInvitation(int eventId, string userId)
         {
             if (_context.UserEventAttendances
                 .Include(x => x.User)
@@ -108,7 +108,7 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public void ChangeResponse(int eventId,int userId, Enums.EventResponse response)
+        public void ChangeResponse(int eventId,string userId, Enums.EventResponse response)
         {
             var attendance =
                 _context.UserEventAttendances.SingleOrDefault(

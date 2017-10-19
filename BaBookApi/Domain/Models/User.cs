@@ -11,7 +11,7 @@ namespace Domain.Models
 {
     public class User : IdentityUser
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string Name { get; set; }
 
         public virtual List<Event> CreatedEvents { get; set; }
