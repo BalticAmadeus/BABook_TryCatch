@@ -25,21 +25,6 @@ namespace BaBookApi.Controllers
                 _repository = new UserEventRepository();
         }
 
-        [Route("api/userevent/{eventId}/{userId}")]
-        [HttpPost]
-        public IHttpActionResult AddUserToEvent(int eventId, int userId)
-        {
-            try
-            {
-                _repository.AddUserToEvent(eventId, userId);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return Ok();
-        }
 
         [Route("api/userevent/{eventId}")]
         [HttpGet]
@@ -61,21 +46,6 @@ namespace BaBookApi.Controllers
             return Ok(eventUsersVM);
         }
 
-        [Route("api/userevent/invite/{eventId}/{userId}")]
-        [HttpPost]
-        public IHttpActionResult SendInvitation(int eventId, string userId)
-        {
-            try
-            {
-                _repository.SendInvitation(eventId, userId);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return Ok();
-        }
 
         [HttpPost]
         [Route("api/userevent")]
@@ -84,7 +54,7 @@ namespace BaBookApi.Controllers
             try
             {
                 var attendance = ViewModelToDomainMapping.AttendanceViewModelToModel(model);
-                _repository.AddResponse(attendance, model.EventId, model.UserId);
+                _repository.ChangeResponse(attendance, model.EventId, model.UserId);
             }
             catch (Exception ex)
             {

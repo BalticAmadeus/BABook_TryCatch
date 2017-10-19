@@ -23,24 +23,6 @@ namespace DataAccess.Repositories
             _context = new DataContext();
         }
 
-        public void AddUserToEvent(int eventId, int userId)
-        {
-            var user = _context.Users.Find(userId);
-            var activeEvent = _context.Events.Find(eventId);
-
-            if(user == null) throw new Exception("There is no such User");
-            if(activeEvent == null) throw new Exception("There is no such Event!");
-
-            var attendance = new UserEventAttendance()
-            {
-                Event = activeEvent,
-                User = user,
-                Response = Enums.EventResponse.Going
-            };
-
-            _context.UserEventAttendances.Add(attendance);
-            _context.SaveChanges();
-        }
 
         public List<UserEventAttendance> GetEventParticipants(int eventId)
         {
@@ -54,33 +36,8 @@ namespace DataAccess.Repositories
         }
 
 
-        public void SendInvitation(int eventId, string userId)
-        {
-            if (_context.UserEventAttendances
-                .Include(x => x.User)
-                .Include(x => x.Event)
-                .Any(x => x.User.Id == userId && x.Event.EventId == eventId))
-            {
-                throw new Exception("User is already invited or attending this event");
-            }
-
-            var user = _context.Users.Find(userId);
-            var activeEvent = _context.Events.Find(eventId);
-
-            if (user == null) throw new Exception("There is no such User!");
-            if (activeEvent == null) throw new Exception("There is no such Event!");
-            
-            var attendance = new UserEventAttendance()
-            {
-                User = user,
-                Event = activeEvent
-            };
-
-            _context.UserEventAttendances.Add(attendance);
-            _context.SaveChanges();
-        }
-
-        public void AddResponse(UserEventAttendance attendance, int eventId, string userId)
+        
+        public void ChangeResponse(UserEventAttendance attendance, int eventId, string userId)
         {
             var currentAttendance =
                 _context.UserEventAttendances.
@@ -94,31 +51,19 @@ namespace DataAccess.Repositories
             }
             else
             { 
-                currentAttendance = new UserEventAttendance();
-
                 var user = _context.Users.Find(userId);
                 var currentEvent = _context.Events.Find(eventId);
-
-                currentAttendance.Event = currentEvent ?? throw new Exception("There is no such event!");
-                currentAttendance.User = user ?? throw new Exception("There is no such user!");
-
-                currentAttendance.Response = attendance.Response;
+                currentAttendance = new UserEventAttendance()
+                {
+                    Event = currentEvent ?? throw new Exception("There is no such event!"),
+                    User = user ?? throw new Exception("There is no such user!"),
+                    Response = Enums.EventResponse.Unanswered
+                };
             }
             _context.UserEventAttendances.AddOrUpdate(currentAttendance);
             _context.SaveChanges();
         }
 
-        public void ChangeResponse(int eventId,string userId, Enums.EventResponse response)
-        {
-            var attendance =
-                _context.UserEventAttendances.SingleOrDefault(
-                    x => x.Event.EventId == eventId && x.User.Id == userId);
-
-            if(attendance == null) throw new Exception("Attendance not found");
-
-            attendance.Response = response;
-            _context.SaveChanges();
-        }
 
         public void AddComment(Comment comment, int eventId, string userId)
         {
