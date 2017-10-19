@@ -26,7 +26,7 @@ namespace BaBookApi.Mapping
             {
                 EventId = model.EventId,
                 GroupName = model.OfGroup.Name,
-                OwnerName = model.OwnerUser.Name,
+                OwnerName = model.OwnerUser.UserName,
                 Date = model.DateOfOccurance,
                 Location = model.Location,
                 Description = model.Description,
@@ -43,7 +43,7 @@ namespace BaBookApi.Mapping
         {
             return new ParticipantViewModel
             {
-                Name = model.User.Name,
+                Name = model.User.UserName,
                 AttendanceStatus = model.Response
             };
         }
@@ -52,7 +52,7 @@ namespace BaBookApi.Mapping
         {
             return new GetCommentsViewModel
             {
-                OwnerUser = model.OwnerUser.Name,
+                OwnerUser = model.OwnerUser.UserName,
                 Text = model.CommentText
             };
         }

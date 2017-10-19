@@ -11,6 +11,7 @@ using BaBookApi.Mapping;
 using BaBookApi.OAuth;
 using BaBookApi.ViewModels;
 using DataAccess.Repositories;
+using Domain.Models;
 using Microsoft.AspNet.Identity;
 using WebGrease.Css.Extensions;
 
@@ -55,13 +56,18 @@ namespace BaBookApi.Controllers
         {
             try
             {
-                return Ok(DomainToViewModelMapping.MapEventListItemViewModel(_repository.GetLoadedEvent(eventId),
-                    HttpContext.Current.User.Identity.GetUserId()));
+                var currentEvent = _repository.GetLoadedEvent(eventId);
+
+                if(currentEvent.OwnerUser.Id == HttpContext.Current.User.Identity.GetUserId()) { 
+                    return Ok(DomainToViewModelMapping.MapEventListItemViewModel(currentEvent,
+                        HttpContext.Current.User.Identity.GetUserId()));
+                }
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+            return BadRequest("Owner who tries to change event is not event Owner");
         }
 
         [HttpPost]

@@ -80,7 +80,6 @@ namespace BaBookApi.OAuth
         {
             _ctx.Dispose();
             _userManager.Dispose();
-
         }
     }
 }

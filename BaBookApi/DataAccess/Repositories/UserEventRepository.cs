@@ -59,7 +59,7 @@ namespace DataAccess.Repositories
             if (_context.UserEventAttendances
                 .Include(x => x.User)
                 .Include(x => x.Event)
-                .Any(x => x.User.UserId == userId && x.Event.EventId == eventId))
+                .Any(x => x.User.Id == userId && x.Event.EventId == eventId))
             {
                 throw new Exception("User is already invited or attending this event");
             }
@@ -112,7 +112,7 @@ namespace DataAccess.Repositories
         {
             var attendance =
                 _context.UserEventAttendances.SingleOrDefault(
-                    x => x.Event.EventId == eventId && x.User.UserId == userId);
+                    x => x.Event.EventId == eventId && x.User.Id == userId);
 
             if(attendance == null) throw new Exception("Attendance not found");
 

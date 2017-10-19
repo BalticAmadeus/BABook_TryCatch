@@ -94,6 +94,10 @@
     <Compile Include="Migrations\201710191121361_UserIdIsStringNow.Designer.cs">
       <DependentUpon>201710191121361_UserIdIsStringNow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710191138509_UserIdIsIdNow.cs" />
+    <Compile Include="Migrations\201710191138509_UserIdIsIdNow.Designer.cs">
+      <DependentUpon>201710191138509_UserIdIsIdNow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710191121361_UserIdIsStringNow.resx">
       <DependentUpon>201710191121361_UserIdIsStringNow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710191138509_UserIdIsIdNow.resx">
+      <DependentUpon>201710191138509_UserIdIsIdNow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
