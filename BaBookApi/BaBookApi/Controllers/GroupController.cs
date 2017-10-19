@@ -56,7 +56,7 @@ namespace BaBookApi.Controllers
         }
 
         [HttpDelete]
-        [Route("api/groups/groupId")]
+        [Route("api/groups/{groupId}")]
         public IHttpActionResult DeleteGroup(int groupId)
         {
             try
