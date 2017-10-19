@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using BaBookApi.Models;
-using BaBookApi.OAuth;
+using BaBookApi.Providers;
+using BaBookApi.ViewModels;
 using Domain.Models;
 using Microsoft.AspNet.Identity;
 
@@ -25,14 +25,14 @@ namespace BaBookApi.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel userModel)
+        public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await _repo.RegisterUser(userModel);
+            var result = await _repo.RegisterUser(model);
 
             var errorResult = GetErrorResult(result);
 

@@ -8,6 +8,22 @@ namespace DataAccess.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Comment",
+                c => new
+                    {
+                        CommentId = c.Int(nullable: false, identity: true),
+                        CommentText = c.String(maxLength: 255),
+                        CommentTime = c.DateTime(nullable: false),
+                        OwnerUser_Id = c.String(maxLength: 128),
+                        OfEvent_EventId = c.Int(),
+                    })
+                .PrimaryKey(t => t.CommentId)
+                .ForeignKey("dbo.AspNetUsers", t => t.OwnerUser_Id)
+                .ForeignKey("dbo.Event", t => t.OfEvent_EventId)
+                .Index(t => t.OwnerUser_Id)
+                .Index(t => t.OfEvent_EventId);
+            
+            CreateTable(
                 "dbo.Event",
                 c => new
                     {
@@ -45,8 +61,6 @@ namespace DataAccess.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        UserId = c.Int(nullable: false),
-                        Name = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -74,22 +88,6 @@ namespace DataAccess.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.Comments",
-                c => new
-                    {
-                        CommentId = c.Int(nullable: false, identity: true),
-                        CommentText = c.String(),
-                        CommentTime = c.DateTime(nullable: false),
-                        OwnerUser_Id = c.String(maxLength: 128),
-                        OfEvent_EventId = c.Int(),
-                    })
-                .PrimaryKey(t => t.CommentId)
-                .ForeignKey("dbo.AspNetUsers", t => t.OwnerUser_Id)
-                .ForeignKey("dbo.Event", t => t.OfEvent_EventId)
-                .Index(t => t.OwnerUser_Id)
-                .Index(t => t.OfEvent_EventId);
             
             CreateTable(
                 "dbo.AspNetUserLogins",
@@ -141,35 +139,35 @@ namespace DataAccess.Migrations
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Event", "OfGroup_GroupId", "dbo.Group");
-            DropForeignKey("dbo.Comments", "OfEvent_EventId", "dbo.Event");
+            DropForeignKey("dbo.Comment", "OfEvent_EventId", "dbo.Event");
             DropForeignKey("dbo.UserEventAttendance", "Event_EventId", "dbo.Event");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Event", "OwnerUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Comments", "OwnerUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Comment", "OwnerUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.UserEventAttendance", "User_Id", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.Comments", new[] { "OfEvent_EventId" });
-            DropIndex("dbo.Comments", new[] { "OwnerUser_Id" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.UserEventAttendance", new[] { "Event_EventId" });
             DropIndex("dbo.UserEventAttendance", new[] { "User_Id" });
             DropIndex("dbo.Event", new[] { "OfGroup_GroupId" });
             DropIndex("dbo.Event", new[] { "OwnerUser_Id" });
+            DropIndex("dbo.Comment", new[] { "OfEvent_EventId" });
+            DropIndex("dbo.Comment", new[] { "OwnerUser_Id" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Group");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.Comments");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.UserEventAttendance");
             DropTable("dbo.Event");
+            DropTable("dbo.Comment");
         }
     }
 }

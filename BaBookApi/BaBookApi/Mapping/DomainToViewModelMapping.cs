@@ -13,7 +13,6 @@ namespace BaBookApi.Mapping
         {
             var attendanceViewModel = new AttendanceViewModel
             {
-                UserId = attendance.User.Id,
                 EventId = attendance.Event.EventId,
                 Status = attendance.Response
             };

@@ -56,7 +56,7 @@ namespace DataAccess.Repositories
                 {
                     Event = currentEvent ?? throw new Exception("There is no such event!"),
                     User = user ?? throw new Exception("There is no such user!"),
-                    Response = Enums.EventResponse.Unanswered
+                    Response = attendance.Response
                 };
             }
             _context.UserEventAttendances.AddOrUpdate(currentAttendance);

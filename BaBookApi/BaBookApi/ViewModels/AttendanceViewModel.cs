@@ -10,9 +10,6 @@ namespace BaBookApi.ViewModels
 {
     public class AttendanceViewModel
     {
-        [JsonProperty("userId")]
-        public string UserId { get; set; }
-
         [JsonProperty("eventId")]
         public int EventId { get; set; }
 

@@ -8,7 +8,6 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Routing;
 using BaBookApi.Mapping;
-using BaBookApi.OAuth;
 using BaBookApi.ViewModels;
 using DataAccess.Repositories;
 using Domain.Models;

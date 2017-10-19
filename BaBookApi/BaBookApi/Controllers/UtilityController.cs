@@ -6,8 +6,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using BaBookApi.Models;
-using BaBookApi.OAuth;
+using BaBookApi.Providers;
+using BaBookApi.ViewModels;
 using DataAccess.Context;
 using Domain.Models;
 using Microsoft.AspNet.Identity;
@@ -34,7 +34,7 @@ namespace BaBookApi.Controllers
         {
             if (_context.Users.Any(x => x.UserName == "admin")) return BadRequest("Already seed'ed");
 
-            var user = new RegisterBindingModel
+            var user = new RegisterViewModel()
             {
                 Email = "admin",
                 Password = "adminas"
@@ -42,7 +42,7 @@ namespace BaBookApi.Controllers
 
             IdentityResult result = await _authRepository.RegisterUser(user);
 
-            var user2 = new RegisterBindingModel()
+            var user2 = new RegisterViewModel()
             {
                 Email = "guest",
                 Password = "guestas"

@@ -4,16 +4,16 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
-using BaBookApi.Models;
+using BaBookApi.ViewModels;
 using DataAccess.Context;
 using Domain.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
 
-namespace BaBookApi.OAuth
+namespace BaBookApi.Providers
 {
-    public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
+    public class WebApiAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
@@ -57,14 +57,14 @@ namespace BaBookApi.OAuth
             _userManager = new UserManager<User>(new UserStore<User>(_ctx));
         }
 
-        public async Task<IdentityResult> RegisterUser(RegisterBindingModel userModel)
+        public async Task<IdentityResult> RegisterUser(RegisterViewModel model)
         {
             var user = new User
             {
-                UserName = userModel.Email
+                UserName = model.Email
             };
 
-            var result = await _userManager.CreateAsync(user, userModel.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             return result;
         }

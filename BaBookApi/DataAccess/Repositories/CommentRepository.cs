@@ -8,7 +8,7 @@ using Domain.Models;
 
 namespace DataAccess.Repositories
 {
-    public class CommentRepository: BaseRepository<Comment>
+    public class CommentRepository : BaseRepository<Comment>
     {
 
         public void AddComment(Comment comment, int eventId, string userId)
