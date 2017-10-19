@@ -256,6 +256,7 @@
     <Compile Include="ViewModels\EventListItemViewModel.cs" />
     <Compile Include="ViewModels\GetCommentsViewModel.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />
+    <Compile Include="ViewModels\InvitableViewModel.cs" />
     <Compile Include="ViewModels\NewCommentViewModel.cs" />
     <Compile Include="ViewModels\NewEventViewModel.cs" />
     <Compile Include="ViewModels\NewGroupViewModel.cs" />

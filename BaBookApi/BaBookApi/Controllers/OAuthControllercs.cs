@@ -14,7 +14,7 @@ namespace BaBookApi.Controllers
 {
     public class OAuthController : ApiController
     {
-        private readonly AuthRepository _repo = null;
+        private readonly AuthRepository _repo;
 
         public OAuthController()
         {

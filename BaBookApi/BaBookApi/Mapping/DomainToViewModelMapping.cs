@@ -58,10 +58,19 @@ namespace BaBookApi.Mapping
 
         public static GroupViewModel MapGroupViewModel(Group model)
         {
-            return new GroupViewModel()
+            return new GroupViewModel
             {
                 GroupId = model.GroupId,
                 GroupName = model.Name
+            };
+        }
+
+        public static InvitableViewModel MapInvitableViewModel(User user)
+        {
+            return new InvitableViewModel
+            {
+                Name = user.UserName,
+                UserId = user.Id
             };
         }
     }

@@ -12,6 +12,7 @@ using Domain.Models;
 using DataAccess.Repositories;
 using Domain.Utility;
 using Microsoft.AspNet.Identity;
+using WebGrease.Css.Extensions;
 
 namespace BaBookApi.Controllers
 {
@@ -64,7 +65,25 @@ namespace BaBookApi.Controllers
             return Ok();
         }
 
-        
+        [HttpGet]
+        [Route("api/invitable/{eventId}")]
+        public IHttpActionResult GetInvitableUsers(int eventId)
+        {
+            var invitableListVM = new List<InvitableViewModel>();
+
+            try
+            {
+                var invitableList = _repository.getInvitable(eventId);
+
+                invitableList.ForEach(x => invitableListVM.Add(DomainToViewModelMapping.MapInvitableViewModel(x)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(invitableListVM);
+        }
 
     }
 }
