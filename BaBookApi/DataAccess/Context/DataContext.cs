@@ -15,6 +15,7 @@ namespace DataAccess.Context
         public DbSet<Group> Groups { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<UserEventAttendance> UserEventAttendances { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public DataContext() : base("DataContext", throwIfV1Schema: false)
         {
@@ -36,6 +37,8 @@ namespace DataAccess.Context
             modelBuilder.Configurations.Add(new GroupConfiguration());
             modelBuilder.Configurations.Add(new EventConfiguration());
             modelBuilder.Configurations.Add(new UserEventAttendanceConfiguration());
+            modelBuilder.Configurations.Add(new CommentConfiguration());
+
 
             base.OnModelCreating(modelBuilder);
         }

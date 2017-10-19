@@ -35,7 +35,6 @@ namespace DataAccess.Repositories
             return Event.Attendances.ToList();           
         }
 
-
         
         public void ChangeResponse(UserEventAttendance attendance, int eventId, string userId)
         {
@@ -65,32 +64,6 @@ namespace DataAccess.Repositories
         }
 
 
-        public void AddComment(Comment comment, int eventId, string userId)
-        {
-            var user = _context.Users.Find(userId);
-            _context.Entry(user).Collection(x => x.Comments).Load();
-            var commentedEvent = _context.Events.Find(eventId);
-
-            if (user == null) throw new Exception("There is no such User!");
-            if (commentedEvent == null) throw new Exception("There is no such Event!");
-
-            comment.OwnerUser = user;
-            comment.OfEvent = commentedEvent;
-
-            user.Comments.Add(comment);
-            _context.SaveChanges();
-        }
-
-        public List<Comment> GetEventComments(int eventId)
-        {
-            var Event = _context.Events
-                .Include(x => x.Comments.Select(y => y.OwnerUser))
-                .SingleOrDefault(x => x.EventId == eventId);
-
-            if (Event == null) throw new Exception("There is no such Event!");
-
-            return Event.Comments.ToList();
-        }
         
     }
 }
