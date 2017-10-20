@@ -55,7 +55,7 @@ namespace BaBookApi.Controllers
             try
             {
                 var attendance = ViewModelToDomainMapping.AttendanceViewModelToModel(model);
-                _repository.ChangeResponse(attendance, model.EventId, HttpContext.Current.User.Identity.GetUserId());
+                _repository.ChangeResponse(attendance, model.EventId, model.UserId);
             }
             catch (Exception ex)
             {
