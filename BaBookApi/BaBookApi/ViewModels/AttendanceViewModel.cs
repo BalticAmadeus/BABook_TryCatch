@@ -13,6 +13,9 @@ namespace BaBookApi.ViewModels
         [JsonProperty("eventId")]
         public int EventId { get; set; }
 
+        [JsonProperty("userId")]
+        public string UserId { get; set; }
+
         [JsonProperty("status")]
         public Enums.EventResponse Status { get; set; }
     }
