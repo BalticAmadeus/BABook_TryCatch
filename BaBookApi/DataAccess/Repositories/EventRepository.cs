@@ -37,14 +37,12 @@ namespace DataAccess.Repositories
                 .SingleOrDefault(x => x.EventId == eventId);
         }
 
-        public void Update(Event model,int eventId)
-        {   
-            var eventToUpdate = SingleOrDefault(x => x.EventId == eventId);
-
-            eventToUpdate.Title = model.Title;
-            eventToUpdate.DateOfOccurance = model.DateOfOccurance;
-            eventToUpdate.Location = model.Location;
-            eventToUpdate.Description = model.Description;
+        public void Update(Event currentEvent, Event updateEvent)
+        {
+            currentEvent.DateOfOccurance = updateEvent.DateOfOccurance;
+            currentEvent.Description = updateEvent.Description;
+            currentEvent.Location = updateEvent.Location;
+            currentEvent.Title = updateEvent.Title;
 
             _context.SaveChanges();
         }

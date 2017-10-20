@@ -73,7 +73,10 @@ namespace BaBookApi.Controllers
             {
                 var newEvent = ViewModelToDomainMapping.NewEventViewModelToModel(model);
 
-                _repository.Add(newEvent, HttpContext.Current.User.Identity.GetUserId(), model.GroupId);
+                if (model.GroupId != 0)
+                {
+                    _repository.Add(newEvent, HttpContext.Current.User.Identity.GetUserId(), model.GroupId);
+                }
             }
             catch (Exception ex)
             {
@@ -83,18 +86,21 @@ namespace BaBookApi.Controllers
             return Ok();
         }
 
-        //TODO: Perdaryti su viewModel
         [HttpPut]
-        [Route("api/events/{eventId}")]
+        [Route("api/events")]
         public IHttpActionResult UpdateEvent(UpdateEventViewModel model)
         {
+            var newEvent = new Event();
+
             try
             {
-                var currentEvent = ViewModelToDomainMapping.UpdateEventViewModelToModel(model);
-
-                if(currentEvent.OwnerUser.Id == HttpContext.Current.User.Identity.GetUserId())
+                var currentEvent = _repository.GetLoadedEvent(model.EventId);
+           
+                newEvent = ViewModelToDomainMapping.UpdateEventViewModelToModel(model);
+                
+                if (currentEvent.OwnerUser.Id == HttpContext.Current.User.Identity.GetUserId())
                 {
-                    _repository.Update(currentEvent, model.EventId);
+                    _repository.Update(currentEvent, newEvent);
                     return Ok();
                 }
             }
