@@ -62,7 +62,16 @@ namespace BaBookApi.Mapping
             return newGroup;
         }
 
-        
+        public static Event UpdateEventViewModelToModel(UpdateEventViewModel model)
+        {
+            return new Event
+            {
+                DateOfOccurance = model.DateOfOccurance,
+                Description = model.Description,
+                Location = model.Location,
+                Title = model.Title
+            };
+        }
 
     }
 }

@@ -83,17 +83,18 @@ namespace BaBookApi.Controllers
             return Ok();
         }
 
+        //TODO: Perdaryti su viewModel
         [HttpPut]
         [Route("api/events/{eventId}")]
-        public IHttpActionResult UpdateEvent(int eventId)
+        public IHttpActionResult UpdateEvent(UpdateEventViewModel model)
         {
             try
             {
-                var currentEvent = _repository.GetLoadedEvent(eventId);
+                var currentEvent = ViewModelToDomainMapping.UpdateEventViewModelToModel(model);
 
                 if(currentEvent.OwnerUser.Id == HttpContext.Current.User.Identity.GetUserId())
                 {
-                    _repository.Update(currentEvent, eventId);
+                    _repository.Update(currentEvent, model.EventId);
                     return Ok();
                 }
             }

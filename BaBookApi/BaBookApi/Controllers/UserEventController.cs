@@ -66,7 +66,7 @@ namespace BaBookApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/invitable/{eventId}")]
+        [Route("api/userevent/invitable/{eventId}")]
         public IHttpActionResult GetInvitableUsers(int eventId)
         {
             var invitableListVM = new List<InvitableViewModel>();
