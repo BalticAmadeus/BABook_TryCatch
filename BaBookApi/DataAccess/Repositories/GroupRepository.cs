@@ -16,5 +16,12 @@ namespace DataAccess.Repositories
                 .Include(x => x.GroupEvents)
                 .ToList();
         }
+
+
+        public Group GetGroupName(int groupId)
+        {
+            return _context.Groups
+                .SingleOrDefault(x => x.GroupId == groupId);
+        }
     }
 }

@@ -72,7 +72,7 @@ namespace BaBookApi.Controllers
         public IHttpActionResult GetInvitableUsers(int eventId)
         {
             var invitableListVM = new List<InvitableViewModel>();
-
+            
             try
             {
                 var invitableList = _repository.getInvitable(eventId);

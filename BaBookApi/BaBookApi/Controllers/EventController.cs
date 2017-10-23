@@ -20,25 +20,30 @@ namespace BaBookApi.Controllers
     public class EventController : ApiController
     {
         private readonly EventRepository _repository;
+        private readonly GroupRepository _repo;
 
 
         public EventController()
         {
+            _repo = new GroupRepository();
             _repository = new EventRepository();
         }
 
-        [Route("api/events")]
-        public IHttpActionResult GetEvents()
+        [Route("api/events/{groupId}")]
+        public IHttpActionResult GetEventsByGroupId(int groupId)
         {
             var toReturn = new List<EventListItemViewModel>();
             var events = _repository.GetLoadedList();
             
+            
+
             try
             {
+                var name = _repo.GetGroupName(groupId).Name;
                 foreach (var e in events)
                 {
                     var eVm = DomainToViewModelMapping.MapEventListItemViewModel(e, HttpContext.Current.User.Identity.GetUserId());
-                    toReturn.Add(eVm);
+                    if (eVm.GroupName==name)toReturn.Add(eVm);
                 }
 
             }
@@ -50,20 +55,25 @@ namespace BaBookApi.Controllers
             return Ok(toReturn);
         }
 
-        [Route("api/events/{eventId}")]
+
+        [Route("api/event/{eventId}")]
         public IHttpActionResult GetEventById(int eventId)
         {
             try
             {
-                return Ok(DomainToViewModelMapping.MapEventListItemViewModel(
+                var vm = DomainToViewModelMapping.MapEventListItemViewModel(
                     _repository.GetLoadedEvent(eventId),
-                    HttpContext.Current.User.Identity.GetUserId()));
+                    HttpContext.Current.User.Identity.GetUserId());
+                vm.IsOwner = HttpContext.Current.User.Identity.GetUserId() == _repository.GetLoadedEvent(eventId).OwnerUser.Id;
+                return Ok(vm);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+
 
         [HttpPost]
         [Route("api/events")]
