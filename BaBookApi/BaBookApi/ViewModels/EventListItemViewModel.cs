@@ -25,6 +25,7 @@ namespace BaBookApi.ViewModels
         public string Location { get; set; }
         [JsonProperty("status")]
         public Enums.EventResponse AttendanceStatus { get; set; }
-
+        [JsonProperty("isOwner")]
+        public bool IsOwner { get; set; }
     }
 }

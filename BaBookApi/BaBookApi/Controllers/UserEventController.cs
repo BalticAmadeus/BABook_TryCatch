@@ -57,7 +57,7 @@ namespace BaBookApi.Controllers
                 var attendance = ViewModelToDomainMapping.AttendanceViewModelToModel(model);
 
                 _repository.ChangeResponse(attendance, model.EventId, model.UserId
-                    ?? HttpContext.Current.User.Identity.GetUserId());
+                    ?? HttpContext.Current.User.Identity.GetUserId()););
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace BaBookApi.Controllers
         public IHttpActionResult GetInvitableUsers(int eventId)
         {
             var invitableListVM = new List<InvitableViewModel>();
-
+            
             try
             {
                 var invitableList = _repository.getInvitable(eventId);
