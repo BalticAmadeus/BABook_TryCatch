@@ -29,7 +29,8 @@ namespace BaBookApi.Controllers
             _repository = new EventRepository();
         }
 
-        [Route("api/events/{groupId}")]
+        [HttpGet]
+        [Route("api/events/group/{groupId}")]
         public IHttpActionResult GetEventsByGroupId(int groupId)
         {
             var toReturn = new List<EventListItemViewModel>();
@@ -55,8 +56,8 @@ namespace BaBookApi.Controllers
             return Ok(toReturn);
         }
 
-
-        [Route("api/event/{eventId}")]
+        [HttpGet]
+        [Route("api/events/{eventId}")]
         public IHttpActionResult GetEventById(int eventId)
         {
             try

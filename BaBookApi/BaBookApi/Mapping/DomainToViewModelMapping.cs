@@ -25,7 +25,7 @@ namespace BaBookApi.Mapping
             {
                 EventId = model.EventId,
                 GroupName = model.OfGroup.Name,
-                OwnerName = model.OwnerUser.UserName,
+                OwnerName = model.OwnerUser.DisplayName,
                 Date = model.DateOfOccurance,
                 Location = model.Location,
                 Description = model.Description,

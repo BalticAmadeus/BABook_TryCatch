@@ -68,7 +68,7 @@ namespace BaBookApi.Controllers
                 Location = "Snekutis",
                 Title = "BeerPong",
                 OfGroup = group,
-                OwnerUser = _context.Users.SingleOrDefault(x => x.UserName == "admin")
+                OwnerUser = _context.Users.SingleOrDefault(x => x.DisplayName == "admin")
             };
 
             _context.Events.AddOrUpdate(newEvent);

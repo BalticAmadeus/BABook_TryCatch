@@ -18,6 +18,7 @@ namespace DataAccess.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
     }
 }
