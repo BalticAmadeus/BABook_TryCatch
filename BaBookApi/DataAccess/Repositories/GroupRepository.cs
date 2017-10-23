@@ -18,9 +18,11 @@ namespace DataAccess.Repositories
         }
 
 
-        public Group GetGroupName(int groupId)
+        public Group GetLoadedGroup(int groupId)
         {
             return _context.Groups
+                .Include(x => x.GroupEvents.Select(y => y.Attendances))
+                .Include(x => x.GroupEvents.Select(y => y.OwnerUser))
                 .SingleOrDefault(x => x.GroupId == groupId);
         }
     }

@@ -29,7 +29,8 @@ namespace BaBookApi.Mapping
                 Date = model.DateOfOccurance,
                 Location = model.Location,
                 Description = model.Description,
-                Title = model.Title
+                Title = model.Title,
+                IsOwner = model.OwnerUser.Id == userId
             };
 
             var attendance = model.Attendances.SingleOrDefault(x => x.User.Id == userId);

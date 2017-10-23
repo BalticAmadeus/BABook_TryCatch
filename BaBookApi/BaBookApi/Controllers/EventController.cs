@@ -19,14 +19,14 @@ namespace BaBookApi.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventController : ApiController
     {
-        private readonly EventRepository _repository;
-        private readonly GroupRepository _repo;
+        private readonly EventRepository _eventRepository;
+        private readonly GroupRepository _groupRepository;
 
 
         public EventController()
         {
-            _repo = new GroupRepository();
-            _repository = new EventRepository();
+            _groupRepository = new GroupRepository();
+            _eventRepository = new EventRepository();
         }
 
         [HttpGet]
@@ -34,20 +34,15 @@ namespace BaBookApi.Controllers
         public IHttpActionResult GetEventsByGroupId(int groupId)
         {
             var toReturn = new List<EventListItemViewModel>();
-            var events = _repository.GetLoadedList();
-            
-            
 
             try
             {
-                var name = _repo.GetGroupName(groupId).Name;
-                foreach (var e in events)
-                {
-                    var eVm = DomainToViewModelMapping.MapEventListItemViewModel(e, HttpContext.Current.User.Identity.GetUserId());
-                    if (eVm.GroupName==name)toReturn.Add(eVm);
-                }
+                var events = _groupRepository.GetLoadedGroup(groupId).GroupEvents.ToList();
 
+                events.ForEach(x => toReturn
+                .Add(DomainToViewModelMapping.MapEventListItemViewModel(x, HttpContext.Current.User.Identity.GetUserId())));
             }
+
             catch (Exception ex)
             {
                 BadRequest(ex.Message);
@@ -63,9 +58,8 @@ namespace BaBookApi.Controllers
             try
             {
                 var vm = DomainToViewModelMapping.MapEventListItemViewModel(
-                    _repository.GetLoadedEvent(eventId),
+                    _eventRepository.GetLoadedEvent(eventId),
                     HttpContext.Current.User.Identity.GetUserId());
-                vm.IsOwner = HttpContext.Current.User.Identity.GetUserId() == _repository.GetLoadedEvent(eventId).OwnerUser.Id;
                 return Ok(vm);
             }
             catch (Exception ex)
@@ -86,7 +80,7 @@ namespace BaBookApi.Controllers
 
                 if (model.GroupId != 0)
                 {
-                    _repository.Add(newEvent, HttpContext.Current.User.Identity.GetUserId(), model.GroupId);
+                    _eventRepository.Add(newEvent, HttpContext.Current.User.Identity.GetUserId(), model.GroupId);
                 }
             }
             catch (Exception ex)
@@ -105,13 +99,13 @@ namespace BaBookApi.Controllers
 
             try
             {
-                var currentEvent = _repository.GetLoadedEvent(model.EventId);
+                var currentEvent = _eventRepository.GetLoadedEvent(model.EventId);
            
                 newEvent = ViewModelToDomainMapping.UpdateEventViewModelToModel(model);
                 
                 if (currentEvent.OwnerUser.Id == HttpContext.Current.User.Identity.GetUserId())
                 {
-                    _repository.Update(currentEvent, newEvent);
+                    _eventRepository.Update(currentEvent, newEvent);
                     return Ok();
                 }
             }
@@ -126,7 +120,7 @@ namespace BaBookApi.Controllers
         [Route("api/events/{id}")]
         public IHttpActionResult DeleteEvent(int id)
         {
-            _repository.Remove(_repository.SingleOrDefault(x => x.EventId == id));
+            _eventRepository.Remove(_eventRepository.SingleOrDefault(x => x.EventId == id));
             return Ok();
         }
     }
