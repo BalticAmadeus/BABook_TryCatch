@@ -11,8 +11,13 @@ namespace BaBookApi.ViewModels
     {
         [Required]
         [Display(Name = "Email")]
-        [JsonProperty("userName")]
+        [JsonProperty("email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Email")]
+        [JsonProperty("name")]
+        public string DisplayName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -20,11 +25,5 @@ namespace BaBookApi.ViewModels
         [Display(Name = "Password")]
         [JsonProperty("password")]
         public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [JsonProperty("confirmPassword")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
     }
 }

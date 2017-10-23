@@ -42,7 +42,7 @@ namespace BaBookApi.Mapping
         {
             return new ParticipantViewModel
             {
-                Name = model.User.UserName,
+                Name = model.User.DisplayName,
                 AttendanceStatus = model.Response
             };
         }
@@ -51,7 +51,7 @@ namespace BaBookApi.Mapping
         {
             return new GetCommentsViewModel
             {
-                OwnerUser = model.OwnerUser.UserName,
+                OwnerUser = model.OwnerUser.DisplayName,
                 Text = model.CommentText
             };
         }
@@ -69,7 +69,7 @@ namespace BaBookApi.Mapping
         {
             return new InvitableViewModel
             {
-                Name = user.UserName,
+                Name = user.DisplayName,
                 UserId = user.Id
             };
         }

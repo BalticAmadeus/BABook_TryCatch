@@ -61,7 +61,8 @@ namespace BaBookApi.Providers
         {
             var user = new User
             {
-                UserName = model.Email
+                UserName = model.Email,
+                DisplayName = model.DisplayName
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);

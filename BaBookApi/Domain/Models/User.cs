@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -11,6 +13,10 @@ namespace Domain.Models
 {
     public class User : IdentityUser
     {
+        [Index(IsUnique = true)]
+        [StringLength(200)]
+        public string DisplayName { get; set; }
+
         public virtual List<Event> CreatedEvents { get; set; }
         public virtual List<UserEventAttendance> AttendedEvents { get; set; }
         public virtual List<Comment> Comments { get; set; }
