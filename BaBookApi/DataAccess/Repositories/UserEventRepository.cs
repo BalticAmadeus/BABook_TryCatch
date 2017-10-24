@@ -67,7 +67,7 @@ namespace DataAccess.Repositories
         {
             var list = _context.Users.
                 Where(user => !_context.UserEventAttendances
-                .Any(x => x.User.Id == user.Id  && x.Event.EventId == eventId && x.User.Id != thisUserId))
+                .Any(x => x.User.Id == user.Id  && x.Event.EventId == eventId ) && user.Id != thisUserId)
                 .ToList();
             if (list == null)
             {

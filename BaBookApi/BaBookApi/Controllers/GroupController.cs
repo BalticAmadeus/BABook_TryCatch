@@ -27,8 +27,8 @@ namespace BaBookApi.Controllers
             try
             {
                 var group = _repository.GetGroupId(eventId);
-                var groupVM = DomainToViewModelMapping.MapGroupViewModel(group);
-                return Ok(groupVM);
+                var groupVm = DomainToViewModelMapping.MapGroupViewModel(group);
+                return Ok(groupVm);
             }
             catch (Exception ex)
             {
