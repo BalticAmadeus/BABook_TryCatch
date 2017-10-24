@@ -63,12 +63,12 @@ namespace DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<User> getInvitable(int eventId)
+        public IEnumerable<User> getInvitable(int eventId,string thisUserId)
         {
             var list = _context.Users.
-                Where(user => !_context.UserEventAttendances.
-                Any(x => x.User.Id == user.Id && x.Event.EventId == eventId)).
-                ToList();
+                Where(user => !_context.UserEventAttendances
+                .Any(x => x.User.Id == user.Id  && x.Event.EventId == eventId && x.User.Id != thisUserId))
+                .ToList();
             if (list == null)
             {
                 throw new Exception("No one can be invited!");
