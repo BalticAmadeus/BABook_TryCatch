@@ -29,6 +29,15 @@ namespace DataAccess.Repositories
                 .ToList();
         }
 
+        public List<Event> GetEventsByOwnerId(string ownerId)
+        {
+            return _context.Events
+                .Include(x => x.OfGroup)
+                .Include(x => x.OwnerUser)
+                .Include(x => x.Attendances.Select(y => y.User))
+                .Where(x => x.OwnerUser.Id == ownerId).ToList();
+        }
+
         public Event GetLoadedEvent(int eventId)
         {
             return _context.Events

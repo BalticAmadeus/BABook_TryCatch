@@ -33,7 +33,7 @@ namespace DataAccess.Repositories
  	        if(Event == null) throw new Exception("There is no such Event!");
 
             return Event.Attendances.ToList();           
-        }
+         }
 
         
         public void ChangeResponse(UserEventAttendance attendance, int eventId, string userId)

@@ -95,6 +95,27 @@ namespace BaBookApi.Controllers
 
         }
 
+       
+        [Route("api/events/myevents")]
+        public IHttpActionResult GetEventsByOwnerId()
+        {
+            var toReturn = new List<EventListItemViewModel>();
+            try
+            {
+                var currentUserId = HttpContext.Current.User.Identity.GetUserId();
+                var events = _eventRepository.GetEventsByOwnerId(currentUserId);
+                
+                events.ForEach(x => toReturn
+                    .Add(DomainToViewModelMapping.MapEventListItemViewModel(x, currentUserId)));
+            }
+            catch(Exception ex)
+            {
+                BadRequest(ex.Message);
+            }
+            return Ok(toReturn);
+        }
+
+
         [HttpGet]
         [Route("api/events/{eventId}")]
         public IHttpActionResult GetEventById(int eventId)
