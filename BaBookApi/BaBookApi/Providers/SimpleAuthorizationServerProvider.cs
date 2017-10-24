@@ -62,7 +62,7 @@ namespace BaBookApi.Providers
             var user = new User
             {
                 UserName = model.Email,
-                DisplayName = model.DisplayName
+                DisplayName = model.Name
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -73,6 +73,17 @@ namespace BaBookApi.Providers
         public async Task<User> FindUser(string userName, string password)
         {
             var user = await _userManager.FindAsync(userName, password);
+
+            return user;
+        }
+
+        public async Task<User> FindUser(string userId)
+        {
+            var user = _ctx.Users.FirstOrDefault(x => x.Id == userId);
+            if (user == null)
+            {
+                throw new Exception("No user found");
+            }
 
             return user;
         }
