@@ -27,7 +27,7 @@ namespace BaBookApi
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/auth/login"),
+                TokenEndpointPath = new PathString("/api/login"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new WebApiAuthorizationServerProvider()
             };

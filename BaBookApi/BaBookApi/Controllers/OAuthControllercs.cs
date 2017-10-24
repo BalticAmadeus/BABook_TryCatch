@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.ModelBinding;
 using BaBookApi.Mapping;
 using BaBookApi.Providers;
@@ -14,6 +16,7 @@ using Microsoft.Owin.Security.Provider;
 
 namespace BaBookApi.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class OAuthController : ApiController
     {
         private readonly AuthRepository _repo;
@@ -29,7 +32,6 @@ namespace BaBookApi.Controllers
         [Route("api/register")]
         public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
