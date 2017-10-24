@@ -73,6 +73,27 @@ namespace BaBookApi.Controllers
             return Ok(toReturn);
         }
 
+        [HttpGet]
+        [Route("api/events/attending")]
+        public IHttpActionResult GetEventsUserAttendsTo()
+        {
+            try
+            {
+                var userId = HttpContext.Current.User.Identity.GetUserId();
+
+                var events = _eventRepository.GetAttendedEvents(userId);
+                var eventsVm = new List<EventListItemViewModel>();
+
+                events.ForEach(x => eventsVm.Add(DomainToViewModelMapping.MapEventListItemViewModel(x, userId)));
+
+                return Ok(eventsVm);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
 
         [HttpGet]
         [Route("api/events/{eventId}")]

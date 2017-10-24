@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Models;
+using Domain.Utility;
 
 namespace DataAccess.Repositories
 {
@@ -35,6 +36,25 @@ namespace DataAccess.Repositories
                 .Include(x => x.OwnerUser)
                 .Include(x => x.Attendances.Select(y => y.User))
                 .SingleOrDefault(x => x.EventId == eventId);
+        }
+
+        public List<Event> GetAttendedEvents(string userId)
+        {
+            var user = _context.Users
+                .Include(x => x.AttendedEvents
+                    .Select(e => e.Event.OwnerUser))
+                .Include(x => x.AttendedEvents
+                    .Select(e => e.Event.OfGroup))
+                .SingleOrDefault(x => x.Id == userId);
+
+            var events = new List<Event>();
+
+            events.AddRange(user?.AttendedEvents
+                                .Where(x => x.Response == Enums.EventResponse.Going)
+                                .Select(x => x.Event)
+                                .ToList() ?? throw new InvalidOperationException());
+
+            return events;
         }
 
         public void Update(Event currentEvent, Event updateEvent)
