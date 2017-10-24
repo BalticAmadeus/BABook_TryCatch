@@ -32,12 +32,12 @@ namespace BaBookApi.Controllers
         [Route("api/seed")]
         public async Task<IHttpActionResult> SeedDatabase()
         {
-            //if (_context.Users.Any(x => x.DisplayName == "admin")) return BadRequest("Already seed'ed");
+            if (_context.Users.Any(x => x.DisplayName == "admin")) return BadRequest("Already seed'ed");
 
             var user = new RegisterViewModel()
             {
                 Email = "admin@admin.com",
-                DisplayName = "admin",
+                Name = "admin",
                 Password = "adminas"
             };
 
@@ -46,7 +46,7 @@ namespace BaBookApi.Controllers
             var user2 = new RegisterViewModel()
             {
                 Email = "guest@guest.com",
-                DisplayName = "guest",
+                Name = "guest",
                 Password = "guestas"
             };
 

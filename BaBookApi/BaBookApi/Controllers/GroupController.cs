@@ -11,7 +11,6 @@ using DataAccess.Repositories;
 
 namespace BaBookApi.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GroupController : ApiController
     {
         private readonly GroupRepository _repository;

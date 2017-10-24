@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http.Cors;
 using BaBookApi.Providers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
@@ -14,6 +15,7 @@ namespace BaBookApi
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureOAuth(app);
         }
 
@@ -22,7 +24,7 @@ namespace BaBookApi
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
+                TokenEndpointPath = new PathString("/auth/login"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new WebApiAuthorizationServerProvider()
             };

@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace BaBookApi.Controllers
 {
-    public class CommentController:ApiController
+    public class CommentController : ApiController
     {
 
         private readonly CommentRepository _repository;

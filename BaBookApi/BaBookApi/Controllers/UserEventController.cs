@@ -16,7 +16,6 @@ using WebGrease.Css.Extensions;
 
 namespace BaBookApi.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserEventController : ApiController
     {
         private readonly UserEventRepository _repository;
