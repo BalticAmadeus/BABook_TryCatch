@@ -21,6 +21,22 @@ namespace BaBookApi.Controllers
             _repository = new GroupRepository();
         }
 
+        [HttpGet]
+        [Route("api/groups/{eventId}")]
+        public IHttpActionResult GetGroupByEventId(int eventId)
+        {
+            try
+            {
+                var group = _repository.GetGroupId(eventId);
+                var groupVM = DomainToViewModelMapping.MapGroupViewModel(group);
+                return Ok(groupVM);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [Route("api/groups")]
         public IHttpActionResult GetGroups()
         {
@@ -29,7 +45,6 @@ namespace BaBookApi.Controllers
                 var groups = _repository.GetLoadedList();
                 var groupsVm = new List<GroupViewModel>();
                 groups.ForEach(x => groupsVm.Add(DomainToViewModelMapping.MapGroupViewModel(x)));
-
                 return Ok(groupsVm);
             }
             catch (Exception ex)

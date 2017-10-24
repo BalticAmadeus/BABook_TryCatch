@@ -17,6 +17,12 @@ namespace DataAccess.Repositories
                 .ToList();
         }
 
+        public Group GetGroupId(int eventId)
+        {
+            return _context.Groups
+                .FirstOrDefault(x => x.GroupEvents
+                .FirstOrDefault(y => y.EventId == eventId) != null);
+        }
 
         public Group GetLoadedGroup(int groupId)
         {
