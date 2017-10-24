@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using BaBookApi.Mapping;
 using BaBookApi.ViewModels;
 using DataAccess.Repositories;
@@ -10,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace BaBookApi.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class CommentController : ApiController
     {
 
