@@ -15,6 +15,7 @@ namespace BaBookApi
         public void Configuration(IAppBuilder app)
         {
             ConfigureOAuth(app);
+            app.MapSignalR();
         }
 
         private void ConfigureOAuth(IAppBuilder app)
