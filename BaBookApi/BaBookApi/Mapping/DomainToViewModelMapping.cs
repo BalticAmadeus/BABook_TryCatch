@@ -74,5 +74,14 @@ namespace BaBookApi.Mapping
                 UserId = user.Id
             };
         }
+
+        public static UserViewModel MapUserViewModel(User user)
+        {
+            return new UserViewModel()
+            {
+                UserId = user.Id,
+                Username = user.DisplayName
+            };
+        }
     }
 }

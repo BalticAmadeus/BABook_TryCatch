@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using BaBookApi.Mapping;
 using BaBookApi.Providers;
 using BaBookApi.ViewModels;
 using Domain.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.Provider;
 
 namespace BaBookApi.Controllers
 {
@@ -24,9 +26,10 @@ namespace BaBookApi.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [HttpPost]
-        [Route("api/Register")]
+        [Route("api/register")]
         public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -37,6 +40,26 @@ namespace BaBookApi.Controllers
             var errorResult = GetErrorResult(result);
 
             return errorResult ?? Ok();
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("api/user")]
+        public IHttpActionResult GetUser()
+        {
+            try
+            {
+                var user = _repo.FindUser(HttpContext.Current.User.Identity.GetUserId());
+
+                var userVm = DomainToViewModelMapping.MapUserViewModel(user.Result);
+                return Ok(userVm);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
         }
 
         protected override void Dispose(bool disposing)

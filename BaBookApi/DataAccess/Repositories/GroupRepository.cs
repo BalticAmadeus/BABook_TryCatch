@@ -17,11 +17,19 @@ namespace DataAccess.Repositories
                 .ToList();
         }
 
+        public Group GetGroupId(int eventId)
+        {
+            return _context.Groups
+                .FirstOrDefault(x => x.GroupEvents
+                .FirstOrDefault(y => y.EventId == eventId) != null);
+        }
 
         public Group GetLoadedGroup(int groupId)
         {
             return _context.Groups
-                .Include(x => x.GroupEvents.Select(y => y.Attendances))
+                .Include(x => x.GroupEvents
+                    .Select(e => e.Attendances
+                        .Select(a => a.User)))
                 .Include(x => x.GroupEvents.Select(y => y.OwnerUser))
                 .SingleOrDefault(x => x.GroupId == groupId);
         }
