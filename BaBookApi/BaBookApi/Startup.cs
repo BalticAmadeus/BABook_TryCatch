@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
 using System.Web.Http.Cors;
 using BaBookApi.Providers;
 using Microsoft.Owin;
@@ -15,6 +16,7 @@ namespace BaBookApi
     {
         public void Configuration(IAppBuilder app)
         {
+            GlobalConfiguration.Configuration.Filters.Add(new AuthorizeAttribute());
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureOAuth(app);
             app.MapSignalR();
