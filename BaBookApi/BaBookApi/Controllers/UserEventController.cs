@@ -74,7 +74,8 @@ namespace BaBookApi.Controllers
             
             try
             {
-                var invitableList = _repository.getInvitable(eventId);
+                var thisUserId = HttpContext.Current.User.Identity.GetUserId();
+                var invitableList = _repository.getInvitable(eventId, thisUserId);
 
                 invitableList.ForEach(x => invitableListVM.Add(DomainToViewModelMapping.MapInvitableViewModel(x)));
             }
