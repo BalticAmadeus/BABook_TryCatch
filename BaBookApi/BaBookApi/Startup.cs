@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BaBookApi.Providers;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using AuthorizeAttribute = System.Web.Http.AuthorizeAttribute;
 
 [assembly: OwinStartup(typeof(BaBookApi.Startup))]
 
@@ -19,7 +21,10 @@ namespace BaBookApi
             GlobalConfiguration.Configuration.Filters.Add(new AuthorizeAttribute());
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureOAuth(app);
-            app.MapSignalR();
+            app.MapSignalR(new HubConfiguration()
+            {
+                EnableDetailedErrors = true
+            });
         }
 
         private void ConfigureOAuth(IAppBuilder app)
