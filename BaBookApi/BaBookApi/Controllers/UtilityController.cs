@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using BaBookApi.Providers;
 using BaBookApi.ViewModels;
 using DataAccess.Context;
@@ -16,6 +17,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace BaBookApi.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class UtilityController : ApiController
     {
         private readonly DataContext _context;
